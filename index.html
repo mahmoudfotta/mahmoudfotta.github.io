@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gamal Labs · Small apps, quietly brilliant</title>
+<meta name="description" content="Gamal Labs is an independent studio making private, native apps for iPhone, iPad and Mac, including Clipboard Pro+ and SpendCue.">
+<link rel="canonical" href="https://gamallabs.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gamal Labs">
+<meta property="og:url" content="https://gamallabs.com/">
+<meta property="og:title" content="Gamal Labs · Small apps, quietly brilliant">
+<meta property="og:description" content="Private, native apps for iPhone, iPad and Mac. No accounts, no ads, and your data stays yours.">
+<meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0f11" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111214'/%3E%3Cpath d='M44 22a15 15 0 1 0 2 15H33' fill='none' stroke='%23f5f3ee' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='47' cy='18' r='4' fill='%23e2b04a'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/instrument-serif.woff2) format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url(assets/fonts/instrument-serif-italic.woff2) format("woff2"); }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ebe8e0;
+  --card: #fffdf9;
+  --ink: #111214;
+  --ink-2: #34363c;
+  --muted: #6a6d75;
+  --line: rgb(17 18 20 / .11);
+  --grid: rgb(17 18 20 / .045);
+  --gold: #c9952e;
+  --clip-1: #191759; --clip-2: #4a46d6; --clip-glow: #7d79ff;
+  --spend-1: #082a1e; --spend-2: #1e6347; --spend-glow: #7fc792;
+  --serif: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --shadow-device: 0 2px 4px rgb(0 0 0 / .08), 0 30px 60px -20px rgb(17 18 40 / .35), 0 60px 120px -40px rgb(17 18 40 / .3);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e0f11;
+    --paper-2: #16171a;
+    --card: #17181b;
+    --ink: #f3f1ec;
+    --ink-2: #d2d0cb;
+    --muted: #9b9ca3;
+    --line: rgb(255 255 255 / .1);
+    --grid: rgb(255 255 255 / .035);
+    --gold: #e2b04a;
+    --shadow-device: 0 2px 4px rgb(0 0 0 / .4), 0 30px 60px -20px rgb(0 0 0 / .7), 0 60px 120px -40px rgb(0 0 0 / .6);
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: min(1200px, 100% - 48px); margin-inline: auto; }
+em, .serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
+.label { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- Nav ---------- */
+.nav { position: sticky; top: 0; z-index: 50; transition: background .3s, border-color .3s, backdrop-filter .3s; border-bottom: 1px solid transparent; }
+.nav.scrolled { background: color-mix(in srgb, var(--paper) 78%, transparent); backdrop-filter: saturate(1.4) blur(16px); -webkit-backdrop-filter: saturate(1.4) blur(16px); border-color: var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 650; font-size: 17px; letter-spacing: -.015em; }
+.mark { width: 30px; height: 30px; border-radius: 9px; background: var(--ink); display: grid; place-items: center; position: relative; }
+.mark svg { width: 19px; height: 19px; }
+.mark path { stroke: var(--paper); }
+.mark::after { content: ""; position: absolute; top: 4px; right: 4px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 15px; }
+.nav-links a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-links .pill { color: var(--paper); background: var(--ink); padding: 8px 16px; border-radius: 999px; font-weight: 550; }
+.nav-links .pill:hover { color: var(--paper); opacity: .85; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; padding: 48px 0 40px; isolation: isolate; }
+.hero::before {
+  content: ""; position: absolute; inset: -68px 0 0; z-index: -1;
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 30%, transparent 75%);
+          mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, #000 30%, transparent 75%);
+}
+.hero .wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: 40px; align-items: center; min-height: min(720px, 86vh); }
+.status { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: color-mix(in srgb, var(--card) 70%, transparent); margin-bottom: 28px; }
+.status .dot { width: 7px; height: 7px; border-radius: 50%; background: #34c46a; box-shadow: 0 0 0 0 rgb(52 196 106 / .6); animation: ping 2.4s var(--ease) infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgb(52 196 106 / .55); } 70%, 100% { box-shadow: 0 0 0 8px rgb(52 196 106 / 0); } }
+h1 { font-size: clamp(48px, 7.4vw, 104px); line-height: .94; letter-spacing: -.045em; font-weight: 700; margin: 0 0 28px; }
+h1 em { font-size: 1.08em; letter-spacing: -.02em; display: inline-block; padding: 0 .08em .14em 0; margin-bottom: -.14em;
+  background: linear-gradient(100deg, var(--clip-2) 0%, #8a63d2 40%, var(--gold) 70%, #2f8f63 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { font-size: clamp(18px, 1.6vw, 20px); color: var(--muted); max-width: 30em; margin: 0 0 36px; }
+.lede strong { color: var(--ink); font-weight: 600; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 16px; padding: 14px 22px; border-radius: 999px; transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .2s, opacity .2s; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+.btn-ink { background: var(--ink); color: var(--paper); box-shadow: 0 10px 24px -10px rgb(17 18 20 / .5); }
+.btn-ink:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -12px rgb(17 18 20 / .55); }
+.btn-ghost { border: 1px solid var(--line); color: var(--ink); background: color-mix(in srgb, var(--card) 60%, transparent); }
+.btn-ghost:hover { background: var(--card); }
+
+/* Hero stage */
+.stage { position: relative; height: 760px; --px: 0; --py: 0; }
+.blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; z-index: -1; }
+.blob.a { width: 360px; height: 360px; left: 2%; top: 4%; background: var(--clip-glow); }
+.blob.b { width: 340px; height: 340px; right: 0; bottom: 4%; background: var(--spend-glow); opacity: .45; }
+.blob.c { width: 160px; height: 160px; left: 44%; top: 44%; background: var(--gold); opacity: .3; }
+.layer { position: absolute; transform: translate3d(calc(var(--px) * var(--d, 10) * 1px), calc(var(--py) * var(--d, 10) * 1px), 0); transition: transform .6s var(--ease); will-change: transform; }
+.l0 { right: 2%; top: 40px; width: 90%; --d: 5; }
+.l1 { left: -2%; top: 300px; --d: 14; }
+.l2 { right: -3%; top: 330px; --d: 20; }
+.l3 { left: 44%; top: 600px; --d: 28; }
+.l4 { right: -1%; top: 2px; --d: 34; }
+.l5 { left: 6%; top: 4px; --d: 22; }
+.l0 .window { position: relative; width: 100%; top: 0; transform: perspective(1600px) rotateY(-8deg) rotateX(4deg); }
+.l1 .device { width: 182px; transform: rotate(-5deg); }
+.l2 .device { width: 192px; transform: rotate(5deg); }
+
+/* iPhone frame: metal edge > black border > full, uncropped screenshot */
+.device { container-type: inline-size; position: relative; }
+.device .frame { padding: 1.5cqw; border-radius: 17cqw; background: linear-gradient(140deg, #e4e5e9 0%, #9a9da4 18%, #4a4c52 45%, #8d9097 75%, #d6d8dc 100%); box-shadow: var(--shadow-device); }
+.device .bezel { padding: 3.2cqw; border-radius: 15.5cqw; background: #050506; box-shadow: inset 0 0 0 .4cqw #1c1c1f; }
+.device .screen { position: relative; overflow: hidden; border-radius: 12.4cqw; background: #000; }
+.device .screen img { width: 100%; height: auto; }
+.device .screen::after { content: ""; position: absolute; top: 2.6cqw; left: 50%; width: 29cqw; height: 8.4cqw; transform: translateX(-50%); background: #000; border-radius: 99px; }
+.device .screen::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; background: linear-gradient(115deg, rgb(255 255 255 / .14) 0%, rgb(255 255 255 / 0) 32%); }
+
+.app-chip { width: 76px; height: 76px; border-radius: 19px; box-shadow: 0 18px 36px -12px rgb(17 18 40 / .45), 0 0 0 1px rgb(255 255 255 / .2) inset; animation: bob 6s ease-in-out infinite; }
+.l3 .app-chip { animation-delay: -3s; }
+@keyframes bob { 50% { transform: translateY(-10px) rotate(-3deg); } }
+.callout { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.callout .tag { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 8px 11px; border-radius: 8px; background: var(--card); color: var(--ink); border: 1px solid var(--line); box-shadow: 0 10px 24px -14px rgb(0 0 0 / .35); }
+.callout .tag b { color: var(--muted); font-weight: 500; margin-right: 6px; }
+.callout .rule { width: 46px; height: 1px; background: linear-gradient(90deg, var(--ink), transparent); opacity: .35; }
+
+/* ---------- Stats ---------- */
+.stats { border-block: 1px solid var(--line); }
+.stats .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat { padding: 30px 28px; border-left: 1px solid var(--line); display: flex; align-items: baseline; gap: 14px; }
+.stat:first-child { border-left: 0; padding-left: 0; }
+.stat .num { font-family: var(--serif); font-size: 52px; line-height: 1; letter-spacing: -.02em; }
+.stat .num sup { font-size: .45em; color: var(--gold); margin-left: 2px; }
+.stat p { margin: 0; font-size: 14px; line-height: 1.35; color: var(--muted); max-width: 9em; }
+
+/* ---------- Section heads ---------- */
+section { scroll-margin-top: 80px; }
+.sec-head { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start; padding: 120px 0 48px; }
+.sec-head h2 { font-size: clamp(36px, 4.8vw, 64px); line-height: 1; letter-spacing: -.04em; margin: 0; font-weight: 700; max-width: 14em; }
+.sec-head h2 em { font-size: 1.06em; }
+.sec-head .label { padding-top: 14px; }
+
+/* ---------- Experiments ---------- */
+.exps { display: grid; gap: 28px; }
+.exp {
+  position: relative; overflow: hidden; border-radius: 36px; color: #fff;
+  display: grid; grid-template-columns: 1fr 1.08fr; gap: 32px; padding: 64px 0 0 64px; min-height: 640px;
+  background: radial-gradient(120% 90% at 85% 10%, var(--g2) 0%, var(--g1) 62%); isolation: isolate;
+}
+.exp::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
+  background-image: linear-gradient(rgb(255 255 255 / .06) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .06) 1px, transparent 1px);
+  background-size: 32px 32px; -webkit-mask-image: linear-gradient(100deg, transparent 20%, #000 70%); mask-image: linear-gradient(100deg, transparent 20%, #000 70%); }
+.exp::after { content: ""; position: absolute; width: 520px; height: 520px; right: -120px; bottom: -200px; border-radius: 50%; background: var(--glow); filter: blur(120px); opacity: .45; z-index: -1; }
+.exp.clip { --g1: var(--clip-1); --g2: var(--clip-2); --glow: var(--clip-glow); --tint: #c9c7ff; }
+.exp.spend { --g1: var(--spend-1); --g2: var(--spend-2); --glow: var(--spend-glow); --tint: #a8e2b9; }
+.exp-copy { padding-bottom: 64px; display: flex; flex-direction: column; }
+.exp-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+.exp-meta span { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 8px 10px; border-radius: 7px; border: 1px solid rgb(255 255 255 / .18); color: rgb(255 255 255 / .78); }
+.exp-meta span:first-child { background: rgb(255 255 255 / .12); color: #fff; border-color: transparent; }
+.exp-title { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+.exp-title img { width: 72px; height: 72px; border-radius: 18px; box-shadow: 0 14px 30px -10px rgb(0 0 0 / .5); }
+.exp h3 { font-size: clamp(36px, 4vw, 52px); line-height: 1; letter-spacing: -.035em; margin: 0; font-weight: 700; }
+.exp .pitch { font-family: var(--serif); font-style: italic; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; margin: 0 0 16px; color: var(--tint); letter-spacing: -.005em; }
+.exp .desc { color: rgb(255 255 255 / .74); margin: 0 0 30px; max-width: 30em; }
+.feats { list-style: none; margin: 0 0 40px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; max-width: 32em; }
+.feats li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.4; color: rgb(255 255 255 / .9); }
+.feats svg { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--tint); }
+.exp-actions { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+.store { display: inline-flex; align-items: center; gap: 12px; padding: 10px 20px 10px 16px; border-radius: 14px; background: #fff; color: #111; text-decoration: none; transition: transform .25s var(--ease), box-shadow .25s var(--ease); box-shadow: 0 12px 30px -12px rgb(0 0 0 / .5); }
+.store:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -12px rgb(0 0 0 / .55); }
+.store svg { width: 22px; height: 22px; }
+.store small { display: block; font-size: 11px; line-height: 1.1; color: #555; font-weight: 500; }
+.store b { display: block; font-size: 17px; line-height: 1.15; letter-spacing: -.01em; }
+.exp-links { display: flex; gap: 20px; font-size: 15px; }
+.exp-links a { color: rgb(255 255 255 / .72); text-decoration: none; border-bottom: 1px solid rgb(255 255 255 / .25); padding-bottom: 1px; transition: color .2s, border-color .2s; }
+.exp-links a:hover { color: #fff; border-color: #fff; }
+
+.exp-visual { position: relative; min-height: 560px; }
+/* Clipboard: Mac window + phone */
+.window { position: absolute; left: 0; top: 24px; width: calc(100% - 64px); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 40px 80px -24px rgb(0 0 0 / .6), 0 0 0 1px rgb(255 255 255 / .15); }
+.window .bar { height: 30px; background: #ecebf0; display: flex; align-items: center; gap: 7px; padding-left: 12px; border-bottom: 1px solid #dddce3; }
+@media (prefers-color-scheme: dark) { .window { background: #1e1e1e; } .window .bar { background: #2a2a2c; border-color: #3a3a3c; } }
+.window .bar i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+.window .bar i:nth-child(2) { background: #febc2e; }
+.window .bar i:nth-child(3) { background: #28c840; }
+.exp.clip .device { position: absolute; width: 200px; left: -8%; bottom: -80px; transform: rotate(-4deg); }
+/* SpendCue: fan of phones */
+.fan .device { position: absolute; width: 230px; bottom: -90px; }
+.fan .f1 { left: 0; transform: rotate(-8deg) translateY(20px); }
+.fan .f2 { left: 50%; margin-left: -130px; width: 260px; bottom: -60px; z-index: 2; }
+.fan .f3 { right: -4%; transform: rotate(8deg) translateY(20px); }
+.langs { font: 500 12px/1.4 var(--mono); letter-spacing: .04em; color: rgb(255 255 255 / .6); margin: -18px 0 34px; }
+
+/* Lab teaser */
+.lab {
+  position: relative; border-radius: 36px; padding: 56px 64px; display: grid; grid-template-columns: auto 1fr auto; gap: 40px; align-items: center;
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 22%, transparent); background-color: var(--card);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 24px 24px;
+}
+.flask { width: 112px; height: 112px; border-radius: 28px; position: relative; overflow: hidden;
+  background: conic-gradient(from 0deg, var(--clip-2), #8a63d2, var(--gold), #2f8f63, var(--clip-2)); animation: spin 10s linear infinite; }
+.flask::after { content: "?"; position: absolute; inset: 3px; border-radius: 25px; display: grid; place-items: center; background: color-mix(in srgb, var(--card) 72%, transparent); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); font: italic 64px/1 var(--serif); color: var(--ink); animation: spin 10s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.lab .label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.lab .label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); animation: blink 1.6s steps(2) infinite; }
+@keyframes blink { 50% { opacity: .2; } }
+.lab h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.05; letter-spacing: -.03em; margin: 0 0 10px; }
+.lab p { margin: 0; color: var(--muted); max-width: 34em; }
+
+/* ---------- Principles ---------- */
+.principles { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.principle { padding: 40px 36px 8px 0; }
+.principle + .principle { border-left: 1px solid var(--line); padding-left: 36px; }
+.principle .n { font-family: var(--serif); font-size: 84px; line-height: .9; color: var(--gold); margin-bottom: 28px; letter-spacing: -.03em; }
+.principle h3 { font-size: 22px; letter-spacing: -.02em; margin: 0 0 10px; }
+.principle p { margin: 0; color: var(--muted); }
+
+/* ---------- Maker ---------- */
+.maker { margin-top: 120px; padding: 72px 0; border-block: 1px solid var(--line); }
+.maker .wrap { display: grid; grid-template-columns: 220px 1fr; gap: 24px; }
+.maker blockquote { margin: 0; font-family: var(--serif); font-size: clamp(30px, 3.6vw, 48px); line-height: 1.12; letter-spacing: -.015em; max-width: 22em; }
+.maker blockquote span { color: var(--muted); }
+.sig { margin-top: 28px; display: flex; align-items: center; gap: 14px; font-size: 15px; color: var(--muted); }
+.sig b { color: var(--ink); font-weight: 600; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font: italic 22px/1 var(--serif); color: var(--paper); background: linear-gradient(135deg, var(--clip-2), #2f8f63); }
+
+/* ---------- Footer ---------- */
+footer { padding: 120px 0 0; overflow: hidden; }
+.contact { text-align: center; }
+.contact .label { margin-bottom: 18px; display: block; }
+.contact h2 { font-size: clamp(34px, 4.6vw, 60px); line-height: 1.02; letter-spacing: -.04em; margin: 0 0 28px; font-weight: 700; }
+.mail { font-family: var(--serif); font-style: italic; font-size: clamp(34px, 5.6vw, 76px); line-height: 1; text-decoration: none; letter-spacing: -.02em; background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat; transition: background-size .5s var(--ease); padding-bottom: 6px; }
+.mail:hover { background-size: 100% 2px; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 24px; margin-top: 120px; padding: 40px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.foot-grid h4 { margin: 0 0 12px; font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.foot-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.foot-grid a { text-decoration: none; color: var(--ink-2); }
+.foot-grid a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.foot-grid p { margin: 12px 0 0; color: var(--muted); font-size: 14px; max-width: 22em; }
+.giant { font-weight: 800; font-size: clamp(64px, 17.5vw, 260px); line-height: .78; letter-spacing: -.06em; text-align: center; white-space: nowrap; margin: 10px 0 -.1em; user-select: none;
+  background: linear-gradient(180deg, var(--ink) 0%, color-mix(in srgb, var(--ink) 0%, transparent) 92%); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: .9; }
+.giant em { font-weight: 400; letter-spacing: -.03em; }
+.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 22px 0 32px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+
+/* ---------- Reveal ---------- */
+.js [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--delay, 0s); }
+.js [data-reveal].in { opacity: 1; transform: none; }
+.js .hero [data-reveal] { transition-duration: 1.1s; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .hero .wrap { grid-template-columns: 1fr; min-height: 0; padding-top: 24px; }
+  .stage { height: 740px; max-width: 620px; width: 100%; margin: 0 auto; }
+  .exp { grid-template-columns: 1fr; padding: 48px 40px 0; min-height: 0; }
+  .exp-copy { padding-bottom: 0; }
+  .exp-visual { min-height: 520px; margin-top: 16px; }
+  .window { width: calc(100% - 40px); left: 0; }
+  .exp.clip .device { left: -2%; }
+  .sec-head, .maker .wrap { grid-template-columns: 1fr; gap: 14px; }
+  .sec-head { padding-top: 96px; }
+  .sec-head .label { padding-top: 0; }
+  .lab { grid-template-columns: auto 1fr; padding: 44px 40px; }
+  .lab .btn { grid-column: 1 / -1; justify-self: start; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .foot-grid > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .wrap { width: calc(100% - 32px); }
+  .nav-links a:not(.pill) { display: none; }
+  .hero { padding-top: 20px; }
+  .stage { height: 500px; }
+  .l0 { top: 40px; right: 0; width: 100%; }
+  .l1 .device { width: 122px; } .l2 .device { width: 128px; }
+  .l1 { left: -2%; top: 175px; } .l2 { right: -2%; top: 195px; }
+  .l3 { left: 42%; top: 410px; } .l4 { right: -2%; top: 0; } .l5 { display: none; }
+  .app-chip { width: 58px; height: 58px; border-radius: 14px; }
+  .blob.a, .blob.b { width: 220px; height: 220px; }
+  .stats .wrap { grid-template-columns: 1fr 1fr; }
+  .stat { padding: 22px 0 22px 18px; flex-direction: column; gap: 6px; }
+  .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .stat .num { font-size: 44px; }
+  .sec-head { padding: 80px 0 32px; }
+  .exp { border-radius: 28px; padding: 32px 22px 0; gap: 8px; }
+  .exp-meta { margin-bottom: 26px; }
+  .exp-title img { width: 60px; height: 60px; border-radius: 15px; }
+  .feats { grid-template-columns: 1fr; }
+  .exp-visual { min-height: 420px; }
+  .window { top: 12px; left: 0; width: 100%; }
+  .exp.clip .device { width: 140px; left: -4%; bottom: -60px; }
+  .fan .device { width: 160px; bottom: -70px; }
+  .fan .f2 { width: 185px; margin-left: -92px; bottom: -40px; }
+  .fan .f1 { left: -6%; } .fan .f3 { right: -6%; }
+  .lab { grid-template-columns: 1fr; padding: 32px 24px; gap: 22px; border-radius: 28px; }
+  .flask { width: 84px; height: 84px; border-radius: 22px; }
+  .flask::after { border-radius: 19px; font-size: 48px; }
+  .principles { grid-template-columns: 1fr; }
+  .principle, .principle + .principle { padding: 32px 0 8px; border-left: 0; }
+  .principle + .principle { border-top: 1px solid var(--line); }
+  .principle .n { font-size: 64px; margin-bottom: 16px; }
+  .maker { margin-top: 80px; padding: 56px 0; }
+  footer { padding-top: 88px; }
+  .foot-grid { margin-top: 88px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+}
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Gamal Labs home">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M44 22a15 15 0 1 0 2 15H33" fill="none" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Gamal Labs
+    </a>
+    <div class="nav-links">
+      <a href="#apps">Apps</a>
+      <a href="#principles">Principles</a>
+      <a href="#lab">In the lab</a>
+      <a class="pill" href="#contact">Say hello</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <div class="status label" data-reveal><span class="dot" aria-hidden="true"></span>Independent app studio</div>
+        <h1 data-reveal style="--delay:.08s">Small apps,<br><em>quietly</em> brilliant.</h1>
+        <p class="lede" data-reveal style="--delay:.16s">Gamal Labs makes private, native apps for iPhone, iPad and Mac. Each one does a single everyday job beautifully. <strong>No accounts. No ads. Your data stays yours.</strong></p>
+        <div class="cta" data-reveal style="--delay:.24s">
+          <a class="btn btn-ink" href="#apps">Explore the apps
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10m0 0 4-4m-4 4L4 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="stage" id="stage" aria-hidden="true" data-reveal style="--delay:.2s">
+        <div class="blob a"></div><div class="blob b"></div><div class="blob c"></div>
+        <div class="layer l0"><div class="window"><div class="bar"><i></i><i></i><i></i></div><picture><source srcset="assets/clipboard-mac-dark.png" media="(prefers-color-scheme: dark)"><img src="assets/clipboard-mac.png" alt="" width="1600" height="1066"></picture></div></div>
+        <div class="layer l1"><div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-history.png" alt="" width="690" height="1500"></div></div></div></div></div>
+        <div class="layer l2"><div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-home.webp" alt="" width="640" height="1391"></div></div></div></div></div>
+        <div class="layer l4"><img class="app-chip" src="assets/clipboard-icon.png" alt="" width="76" height="76"></div>
+        <div class="layer l3"><img class="app-chip" src="assets/spendcue-icon.png" alt="" width="76" height="76"></div>
+        <div class="layer l5"><div class="callout"><span class="rule"></span><span class="tag"><b>EXP-001 / 002</b>Shipped &amp; on the App Store</span></div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <div class="stats" aria-label="At a glance">
+    <div class="wrap">
+      <div class="stat" data-reveal><span class="num">2</span><p>apps live on the App Store</p></div>
+      <div class="stat" data-reveal style="--delay:.06s"><span class="num">0</span><p>ads or ad trackers</p></div>
+      <div class="stat" data-reveal style="--delay:.12s"><span class="num">0</span><p>accounts to create</p></div>
+      <div class="stat" data-reveal style="--delay:.18s"><span class="num">3</span><p>platforms: iPhone, iPad &amp; Mac</p></div>
+    </div>
+  </div>
+
+  <!-- Apps -->
+  <section id="apps" class="wrap" aria-labelledby="apps-title">
+    <div class="sec-head">
+      <span class="label" data-reveal>§ 01 — The apps</span>
+      <h2 id="apps-title" data-reveal style="--delay:.08s">Experiments that <em>made it out</em> of the lab.</h2>
+    </div>
+
+    <div class="exps">
+      <!-- Clipboard Pro+ -->
+      <article class="exp clip" data-reveal aria-labelledby="clip-title">
+        <div class="exp-copy">
+          <div class="exp-meta"><span>EXP-001</span><span>Productivity</span><span>iPhone · iPad · Mac</span></div>
+          <div class="exp-title">
+            <img src="assets/clipboard-icon.png" alt="" width="72" height="72">
+            <h3 id="clip-title">Clipboard Pro+</h3>
+          </div>
+          <p class="pitch">Keep the good stuff. Use&nbsp;it&nbsp;again.</p>
+          <p class="desc">Everything you copy, from text and links to your go-to replies, saved, tagged and searchable on every device you own.</p>
+          <ul class="feats">
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Searchable clipboard history</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Favorites, tags &amp; collections</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>On-device AI summaries &amp; rewrites</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>A keyboard for quick pasting</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Native Mac app with shortcuts</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Optional private iCloud sync</li>
+          </ul>
+          <div class="exp-actions">
+            <a class="store" href="https://apps.apple.com/us/app/clipboard-pro-paste-manager/id6761011158" aria-label="Download Clipboard Pro+ on the App Store">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#111214"/><path d="M12 6.5v8m0 0 3.5-3.5M12 14.5 8.5 11M7.5 17.5h9" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><small>Download on the</small><b>App Store</b></span>
+            </a>
+            <nav class="exp-links" aria-label="Clipboard Pro+ links">
+              <a href="/Clipboard-pro-plus/">Website</a>
+              <a href="/Clipboard-pro-plus/support/">Support</a>
+              <a href="/Clipboard-pro-plus/privacy-policy/">Privacy</a>
+            </nav>
+          </div>
+        </div>
+        <div class="exp-visual">
+          <div class="window"><div class="bar" aria-hidden="true"><i></i><i></i><i></i></div><picture><source srcset="assets/clipboard-mac-dark.png" media="(prefers-color-scheme: dark)"><img src="assets/clipboard-mac.png" alt="Clipboard Pro+ on Mac showing saved clips with tags and a preview pane" width="1600" height="1066" loading="lazy"></picture></div>
+          <div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-ai.png" alt="Clipboard Pro+ AI tools summarizing a saved note on iPhone" width="690" height="1500" loading="lazy"></div></div></div></div>
+        </div>
+      </article>
+
+      <!-- SpendCue -->
+      <article class="exp spend" data-reveal aria-labelledby="spend-title">
+        <div class="exp-copy">
+          <div class="exp-meta"><span>EXP-002</span><span>Finance</span><span>iPhone · iPad</span></div>
+          <div class="exp-title">
+            <img src="assets/spendcue-icon.png" alt="" width="72" height="72">
+            <h3 id="spend-title">SpendCue</h3>
+          </div>
+          <p class="pitch">Know what’s safe to spend&nbsp;today.</p>
+          <p class="desc">A calm daily budget that turns your balance, bills and next payday into one number you can trust, with every record kept on your device.</p>
+          <p class="langs">English · العربية · Français · Español</p>
+          <ul class="feats">
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Daily safe-to-spend guide</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Bills due before payday</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Subscriptions, goals &amp; debts</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Weekly reviews &amp; AI insights</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>No bank login required</li>
+            <li><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="currentColor" opacity=".2"/><path d="m5.5 9.2 2.3 2.3 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Syncs via your private iCloud</li>
+          </ul>
+          <div class="exp-actions">
+            <a class="store" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#111214"/><path d="M12 6.5v8m0 0 3.5-3.5M12 14.5 8.5 11M7.5 17.5h9" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><small>Download on the</small><b>App Store</b></span>
+            </a>
+            <nav class="exp-links" aria-label="SpendCue links">
+              <a href="/SpendCueApp/">Website</a>
+              <a href="/SpendCueApp/#help-title">Support</a>
+              <a href="/SpendCueApp/privacy/">Privacy</a>
+              <a href="/SpendCueApp/terms/">Terms</a>
+            </nav>
+          </div>
+        </div>
+        <div class="exp-visual fan">
+          <div class="device f1"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-bills.webp" alt="SpendCue bills due before payday" width="640" height="1391" loading="lazy"></div></div></div></div>
+          <div class="device f2"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-home.webp" alt="SpendCue home screen with today’s safe-to-spend amount" width="640" height="1391" loading="lazy"></div></div></div></div>
+          <div class="device f3"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-review.webp" alt="SpendCue weekly spending review with AI insights" width="640" height="1391" loading="lazy"></div></div></div></div>
+        </div>
+      </article>
+
+      <!-- Next -->
+      <aside class="lab" id="lab" data-reveal aria-labelledby="lab-title">
+        <div class="flask" aria-hidden="true"></div>
+        <div>
+          <span class="label">EXP-003 · Status: brewing</span>
+          <h3 id="lab-title">Something new is on the&nbsp;bench.</h3>
+          <p>The next Gamal Labs app is in development. Same rules as always: private, native and focused on one job. Want to hear when it ships?</p>
+        </div>
+        <a class="btn btn-ink" href="mailto:hello@gamallabs.com?subject=Tell%20me%20when%20EXP-003%20ships">Notify me
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10m0 0L9 4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section id="principles" class="wrap" aria-labelledby="principles-title">
+    <div class="sec-head">
+      <span class="label" data-reveal>§ 02 — How we build</span>
+      <h2 id="principles-title" data-reveal style="--delay:.08s">Three rules. <em>No exceptions.</em></h2>
+    </div>
+    <div class="principles">
+      <div class="principle" data-reveal>
+        <div class="n">01</div>
+        <h3>Private by design</h3>
+        <p>Your data lives on your devices and in your own iCloud. No sign-ups, no ads, and no servers of ours storing what you save.</p>
+      </div>
+      <div class="principle" data-reveal style="--delay:.08s">
+        <div class="n">02</div>
+        <h3>Native, never generic</h3>
+        <p>Built specifically for Apple platforms, so every app feels at home right next to the ones that came with your iPhone and Mac.</p>
+      </div>
+      <div class="principle" data-reveal style="--delay:.16s">
+        <div class="n">03</div>
+        <h3>One job, done well</h3>
+        <p>Each app solves one everyday problem completely, instead of ten problems halfway. Fewer buttons, more calm.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Maker -->
+  <section class="maker" aria-label="About the maker">
+    <div class="wrap">
+      <span class="label" data-reveal>§ 03 — The maker</span>
+      <div data-reveal style="--delay:.08s">
+        <blockquote>“I build the apps I wish already existed: <span>small, honest tools that respect your attention and your privacy.</span>”</blockquote>
+        <div class="sig"><span class="avatar" aria-hidden="true">M</span><span><b>Mahmoud Gamal</b><br>Designer &amp; developer, Gamal Labs</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact" data-reveal>
+      <span class="label">§ 04 — Contact</span>
+      <h2>Ideas, bugs or just hello?</h2>
+      <a class="mail" href="mailto:hello@gamallabs.com">hello@gamallabs.com</a>
+    </div>
+
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top"><span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M44 22a15 15 0 1 0 2 15H33" fill="none" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Gamal Labs</a>
+        <p>Small, private apps for iPhone, iPad and Mac.</p>
+      </div>
+      <div>
+        <h4>Clipboard Pro+</h4>
+        <ul>
+          <li><a href="https://apps.apple.com/us/app/clipboard-pro-paste-manager/id6761011158">App Store</a></li>
+          <li><a href="/Clipboard-pro-plus/support/">Support</a></li>
+          <li><a href="/Clipboard-pro-plus/privacy-policy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>SpendCue</h4>
+        <ul>
+          <li><a href="https://apps.apple.com/app/id6767021493">App Store</a></li>
+          <li><a href="/SpendCueApp/#help-title">Support</a></li>
+          <li><a href="/SpendCueApp/privacy/">Privacy</a></li>
+          <li><a href="/SpendCueApp/terms/">Terms</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="#apps">Apps</a></li>
+          <li><a href="#principles">Principles</a></li>
+          <li><a href="#lab">In the lab</a></li>
+          <li><a href="mailto:hello@gamallabs.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="giant" aria-hidden="true">Gamal <em>Labs</em></div>
+  <div class="wrap legal">
+    <span>© <span id="year">2026</span> Gamal Labs. Made with care.</span>
+    <span>App Store is a service mark of Apple Inc.</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Nav background once the page scrolls
+  const nav = document.querySelector(".nav");
+  const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // Reveal on scroll
+  const items = document.querySelectorAll("[data-reveal]");
+  if (reduce || !("IntersectionObserver" in window)) { items.forEach(el => el.classList.add("in")); }
+  else {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { rootMargin: "0px 0px -8% 0px", threshold: .08 });
+    items.forEach(el => io.observe(el));
+  }
+
+  // Hero parallax follows the pointer
+  const stage = document.getElementById("stage");
+  if (!reduce && matchMedia("(pointer: fine)").matches) {
+    let raf = 0;
+    addEventListener("pointermove", e => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        stage.style.setProperty("--px", (e.clientX / innerWidth - .5).toFixed(3));
+        stage.style.setProperty("--py", (e.clientY / innerHeight - .5).toFixed(3));
+      });
+    }, { passive: true });
+  }
+})();
+</script>
+</body>
+</html>
