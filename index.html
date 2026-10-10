@@ -14,590 +14,298 @@
 <meta property="og:image" content="https://gamallabs.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Gamal Labs: small apps, quietly brilliant. The Pip Clipboard and SpendCue app icons on a shelf.">
+<meta property="og:image:alt" content="Gamal Labs: small apps, quietly brilliant. The Pip Clipboard and SpendCue app icons.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Gamal Labs · Small apps, quietly brilliant">
 <meta name="twitter:description" content="Private, native apps for iPhone, iPad and Mac. No accounts, no ads, and your data stays yours.">
 <meta name="twitter:image" content="https://gamallabs.com/assets/og.png">
-<meta name="twitter:image:alt" content="Gamal Labs: small apps, quietly brilliant. The Pip Clipboard and SpendCue app icons on a shelf.">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#07080a">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2307080a'/%3E%3Cpath d='M44 22a15 15 0 1 0 2 15H33' fill='none' stroke='%23f4f2ee' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='47' cy='18' r='4' fill='%23f0bd55'/%3E%3C/svg%3E">
+<meta name="twitter:image:alt" content="Gamal Labs: small apps, quietly brilliant. The Pip Clipboard and SpendCue app icons.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f6f4ee">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%231f211c'/%3E%3Cpath d='M44 22a15 15 0 1 0 2 15H33' fill='none' stroke='%23f6f4ee' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='47' cy='18' r='4.5' fill='%23f2552c'/%3E%3C/svg%3E">
 <link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
-<style>
-@font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/instrument-serif.woff2) format("woff2"); }
-@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url(assets/fonts/instrument-serif-italic.woff2) format("woff2"); }
-@property --spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-
-:root {
-  --bg: #07080a;
-  --ink: #f4f2ee;
-  --muted: #a3a4ac;
-  --dim: #6f7078;
-  --line: rgb(255 255 255 / .08);
-  --line-2: rgb(255 255 255 / .14);
-  --indigo: #807cff;
-  --indigo-2: #4c48da;
-  --emerald: #4fd8a0;
-  --emerald-2: #156446;
-  --gold: #f0bd55;
-  --serif: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
-  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-  --ease: cubic-bezier(.16, 1, .3, 1);
-}
-
-* { box-sizing: border-box; }
-html { background: var(--bg); color-scheme: dark; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-body::after { /* film grain */
-  content: ""; position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .045;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-img { display: block; max-width: 100%; height: auto; }
-a { color: inherit; }
-::selection { background: rgb(128 124 255 / .45); }
-:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 8px; }
-.wrap { width: min(1180px, 100% - 48px); margin-inline: auto; }
-em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; }
-.label { font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
-
-/* ---------- Nav ---------- */
-.nav {
-  position: fixed; top: 14px; left: 50%; transform: translateX(-50%); z-index: 60;
-  width: min(1100px, calc(100% - 24px)); display: flex; align-items: center; justify-content: space-between;
-  padding: 7px 7px 7px 16px; border-radius: 999px; border: 1px solid var(--line);
-  background: rgb(14 15 18 / .6); backdrop-filter: blur(22px) saturate(1.6); -webkit-backdrop-filter: blur(22px) saturate(1.6);
-  box-shadow: 0 10px 40px -10px rgb(0 0 0 / .6);
-}
-.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 650; font-size: 16px; letter-spacing: -.015em; }
-.mark { width: 28px; height: 28px; border-radius: 8px; background: var(--ink); display: grid; place-items: center; position: relative; flex: none; }
-.mark svg { width: 18px; height: 18px; stroke: var(--bg); }
-.mark::after { content: ""; position: absolute; top: 4px; right: 4px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
-.nav-links { display: flex; align-items: center; gap: 4px; font-size: 14.5px; }
-.nav-links a { text-decoration: none; color: var(--muted); padding: 8px 14px; border-radius: 999px; transition: color .2s, background .2s; }
-.nav-links a:hover { color: var(--ink); background: rgb(255 255 255 / .06); }
-.nav-links .cta { color: var(--bg); background: var(--ink); font-weight: 600; }
-.nav-links .cta:hover { color: var(--bg); background: #fff; }
-.dl { position: relative; }
-.dl summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; }
-.dl summary::-webkit-details-marker { display: none; }
-.dl summary svg { width: 14px; height: 14px; transition: transform .3s var(--ease); }
-.dl[open] summary svg { transform: rotate(180deg); }
-.dl-panel { position: absolute; right: 0; top: calc(100% + 14px); width: 340px; padding: 8px; border-radius: 24px; border: 1px solid var(--line-2);
-  background: rgb(18 19 23 / .97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 30px 60px -20px rgb(0 0 0 / .8); animation: pop .35s var(--ease); }
-@keyframes pop { from { opacity: 0; transform: translateY(-6px) scale(.98); } }
-.dl-app { display: grid; grid-template-columns: 48px 1fr; gap: 4px 14px; align-items: center; padding: 12px; border-radius: 18px; }
-.dl-app + .dl-app { border-top: 1px solid var(--line); border-radius: 0 0 18px 18px; }
-.dl-app img { width: 48px; height: 48px; border-radius: 23%; grid-row: span 2; }
-.dl-app b { display: block; color: var(--ink); font-size: 15.5px; letter-spacing: -.01em; }
-.dl-app span { display: block; color: var(--dim); font-size: 12.5px; }
-.dl-btns { grid-column: 2; display: flex; gap: 8px; margin-top: 6px; }
-.nav-links .mini { padding: 7px 14px; font-size: 13.5px; font-weight: 600; color: var(--ink); border: 1px solid var(--line-2); }
-.nav-links .mini.solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.nav-links .mini.solid:hover { background: #fff; color: var(--bg); }
-
-/* ---------- Hero ---------- */
-.hero { position: relative; isolation: isolate; overflow: hidden; padding: 160px 0 90px; text-align: center; --mx: 50%; --my: 30%; }
-.aurora { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
-.aurora i { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .5; animation: drift 24s ease-in-out infinite alternate; }
-.aurora i:nth-child(1) { width: 640px; height: 640px; left: -6%; top: -18%; background: var(--indigo-2); }
-.aurora i:nth-child(2) { width: 560px; height: 560px; right: -8%; top: 4%; background: var(--emerald-2); animation-duration: 28s; animation-delay: -8s; }
-.aurora i:nth-child(3) { width: 340px; height: 340px; left: 42%; top: 46%; background: #8a5a12; opacity: .35; animation-duration: 20s; animation-delay: -4s; }
-@keyframes drift { to { transform: translate3d(80px, 50px, 0) scale(1.18); } }
-.hero::before { /* lab floor grid */
-  content: ""; position: absolute; left: -50%; right: -50%; bottom: -10%; height: 62%; z-index: -1;
-  background-image: linear-gradient(rgb(255 255 255 / .07) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .07) 1px, transparent 1px);
-  background-size: 64px 64px; transform: perspective(700px) rotateX(62deg); transform-origin: 50% 100%;
-  -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 75%); mask-image: linear-gradient(to top, #000 0%, transparent 75%);
-}
-.hero::after { /* cursor spotlight */
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(520px circle at var(--mx) var(--my), rgb(255 255 255 / .06), transparent 60%);
-}
-.eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 6px 15px 6px 6px; border-radius: 999px; border: 1px solid var(--line-2); background: rgb(255 255 255 / .04); font-size: 14px; color: var(--muted); }
-.eyebrow b { white-space: nowrap; flex: none; font: 600 11px/1 var(--mono); letter-spacing: .08em; color: var(--bg); background: var(--gold); padding: 6px 9px; border-radius: 999px; }
-h1 { font-size: clamp(54px, 10vw, 150px); line-height: .88; letter-spacing: -.055em; font-weight: 700; margin: 30px auto 28px; max-width: 11ch; }
-h1 em { display: inline-block; padding: 0 .08em .12em 0; margin-bottom: -.12em; font-size: 1.04em; letter-spacing: -.03em;
-  background: linear-gradient(90deg, #9d99ff, #d39bff 25%, #f4c66d 50%, #66dcaa 75%, #9d99ff); background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 8s linear infinite; }
-@keyframes shimmer { to { background-position: -200% 0; } }
-.lede { font-size: clamp(18px, 1.7vw, 21px); color: var(--muted); max-width: 33em; margin: 0 auto 36px; }
-.lede strong { color: var(--ink); font-weight: 600; }
-.cta-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
-.btn { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 16px; padding: 14px 24px; border-radius: 999px; transition: transform .3s var(--ease), background .2s, box-shadow .3s var(--ease); }
-.btn svg { width: 16px; height: 16px; flex: none; }
-.btn-light { background: var(--ink); color: var(--bg); box-shadow: 0 0 0 1px rgb(255 255 255 / .2), 0 14px 40px -12px rgb(255 255 255 / .35); }
-.btn-light:hover { transform: translateY(-2px); background: #fff; }
-.btn-glass { border: 1px solid var(--line-2); background: rgb(255 255 255 / .04); color: var(--ink); }
-.btn-glass:hover { background: rgb(255 255 255 / .09); }
-.btn-app { gap: 12px; padding: 9px 22px 9px 9px; background: var(--ink); color: var(--bg); box-shadow: 0 0 0 1px rgb(255 255 255 / .2), 0 14px 40px -12px rgb(255 255 255 / .3); text-align: left; line-height: 1.15; font-size: 16.5px; letter-spacing: -.01em; }
-.btn-app:hover { transform: translateY(-2px); background: #fff; }
-.btn-app img { width: 34px; height: 34px; border-radius: 23%; }
-.btn-app small { display: block; font-size: 11.5px; font-weight: 500; color: #5d5e64; }
-
-/* App shelf */
-.shelf { position: relative; display: flex; justify-content: center; align-items: flex-start; gap: clamp(28px, 6vw, 72px); margin: 100px auto 0; width: fit-content; padding: 0 40px; }
-.shelf::before { content: ""; position: absolute; left: -12%; right: -12%; top: 142px; height: 1px; background: linear-gradient(90deg, transparent, rgb(255 255 255 / .5), transparent); box-shadow: 0 0 24px 2px rgb(160 156 255 / .35); }
-.shelf::after { content: ""; position: absolute; left: -6%; right: -6%; top: 143px; height: 90px; z-index: -1; background: linear-gradient(180deg, rgb(255 255 255 / .07), transparent); clip-path: polygon(3% 0, 97% 0, 100% 100%, 0 100%); }
-.tile { display: grid; justify-items: center; width: 150px; }
-.tile .lift { display: block; text-decoration: none; color: inherit; border-radius: 23%; transition: transform .5s var(--ease); }
-.tile .lift:hover, .tile .lift:focus-visible { transform: translateY(-12px) scale(1.04); }
-.float { position: relative; display: block; width: 132px; height: 132px; animation: float 7s ease-in-out infinite; }
-@keyframes float { 50% { transform: translateY(-9px); } }
-.float::before { content: ""; position: absolute; inset: 18% 12% -6%; z-index: -1; border-radius: 50%; background: var(--glow, var(--indigo)); filter: blur(34px); opacity: .55; transition: opacity .4s; }
-.tile .lift:hover .float::before { opacity: .9; }
-.tile .site { margin-top: 12px; display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; background: rgb(255 255 255 / .03); transition: background .2s, border-color .2s; }
-.tile .site:hover { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .3); }
-.tile .site svg, .btn svg.out { width: 13px; height: 13px; }
-.icon { width: 132px; height: 132px; border-radius: 23%; box-shadow: 0 24px 40px -16px rgb(0 0 0 / .9);
-  -webkit-box-reflect: below 12px linear-gradient(transparent 64%, rgb(255 255 255 / .2)); }
-.icon.light { background: #fff; }
-.icon.ghost { display: grid; place-items: center; position: relative; background: rgb(255 255 255 / .03); border: 1.5px dashed rgb(255 255 255 / .2); box-shadow: none; font: italic 64px/1 var(--serif); color: rgb(255 255 255 / .75); -webkit-box-reflect: unset; }
-.icon.ghost::after { content: ""; position: absolute; inset: -1.5px; border-radius: inherit; padding: 1.5px; background: conic-gradient(from var(--spin), transparent 0 70%, var(--gold) 85%, transparent 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 4s linear infinite; }
-@keyframes spin { to { --spin: 360deg; } }
-.tile .name { margin-top: 70px; font-weight: 600; font-size: 16px; letter-spacing: -.01em; }
-.tile .kind { font-size: 13px; color: var(--dim); margin-top: 2px; }
-.tile.next .name { color: var(--muted); }
-
-/* ---------- Marquee ---------- */
-.marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 26px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-.track { display: flex; width: max-content; animation: marquee 48s linear infinite; }
-.marquee:hover .track { animation-play-state: paused; }
-.track ul { display: flex; align-items: center; gap: 36px; padding: 0 18px; margin: 0; list-style: none; }
-.track li { font-size: clamp(22px, 2.4vw, 30px); font-weight: 600; letter-spacing: -.03em; white-space: nowrap; color: rgb(244 242 238 / .9); }
-.track li.s { color: var(--gold); font-size: 18px; }
-.track li em { font-size: 1.12em; color: var(--muted); }
-@keyframes marquee { to { transform: translateX(-50%); } }
-
-/* ---------- Chapters ---------- */
-.chapter { position: relative; padding: 130px 0 0; scroll-margin-top: 40px; }
-.chapter-head { text-align: center; max-width: 900px; margin: 0 auto; }
-.kicker { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px; }
-.kicker img { width: 40px; height: 40px; border-radius: 23%; }
-h2 { font-size: clamp(44px, 7.4vw, 108px); line-height: .92; letter-spacing: -.05em; font-weight: 700; margin: 0 0 26px; }
-h2 em { display: inline-block; padding: 0 .08em .1em 0; margin-bottom: -.1em; font-size: 1.04em; letter-spacing: -.025em; }
-.clip h2 em { color: #b1aeff; }
-.spend h2 em { color: #8ae6bd; }
-.lead { font-size: clamp(18px, 1.6vw, 21px); color: var(--muted); max-width: 34em; margin: 0 auto 34px; }
-.actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 26px; }
-.store { display: inline-flex; align-items: center; gap: 12px; padding: 10px 22px 10px 12px; border-radius: 16px; background: var(--ink); color: #0b0b0d; text-decoration: none; transition: transform .3s var(--ease); box-shadow: 0 14px 40px -14px rgb(255 255 255 / .35); }
-.store:hover { transform: translateY(-2px); }
-.store svg { width: 28px; height: 28px; flex: none; }
-.store small { display: block; font-size: 11px; line-height: 1.1; color: #55565c; font-weight: 500; text-align: left; }
-.store b { display: block; font-size: 18px; line-height: 1.15; letter-spacing: -.015em; }
-.links { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 22px; font-size: 14.5px; margin-top: 22px; }
-.links a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-2); padding-bottom: 2px; transition: color .2s, border-color .2s; }
-.links a:hover { color: var(--ink); border-color: var(--ink); }
-
-/* iPhone frame: metal edge > black border > full screenshot */
-.device { container-type: inline-size; position: relative; }
-.device .frame { padding: 1.5cqw; border-radius: 17cqw; background: linear-gradient(140deg, #7d8088 0%, #3a3c42 22%, #17181b 50%, #34363c 78%, #8a8d95 100%); box-shadow: 0 0 0 1px rgb(0 0 0 / .6), 0 40px 80px -30px rgb(0 0 0 / .9); }
-.device .bezel { padding: 3.2cqw; border-radius: 15.5cqw; background: #030304; }
-.device .screen { position: relative; overflow: hidden; border-radius: 12.4cqw; background: #000; }
-.device .screen img { width: 100%; }
-.device .screen::after { content: ""; position: absolute; top: 2.6cqw; left: 50%; width: 29cqw; height: 8.4cqw; transform: translateX(-50%); background: #000; border-radius: 99px; }
-.device .screen::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(115deg, rgb(255 255 255 / .12), rgb(255 255 255 / 0) 30%); }
-
-/* Mac window */
-.mac { position: relative; border-radius: 14px; overflow: hidden; background: #1e1e20; box-shadow: 0 0 0 1px rgb(255 255 255 / .1), 0 60px 120px -40px rgb(0 0 0 / .9); }
-.mac .bar { height: 34px; display: flex; align-items: center; gap: 8px; padding-left: 14px; background: #2a2a2d; border-bottom: 1px solid #38383b; }
-.mac .bar i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
-.mac .bar i:nth-child(2) { background: #febc2e; }
-.mac .bar i:nth-child(3) { background: #28c840; }
-.mac .bar span { margin-inline: auto; transform: translateX(-26px); font-size: 12.5px; color: #8c8c90; font-weight: 500; }
-
-/* Clipboard stage */
-.stage { position: relative; isolation: isolate; width: min(1040px, 100%); margin: 72px auto 0; padding: 0 8% 7%; --p: 1; }
-.stage::before { content: ""; position: absolute; left: 10%; right: 10%; top: 20%; bottom: 0; z-index: -1; background: radial-gradient(closest-side, rgb(98 94 245 / .55), transparent); filter: blur(30px); }
-.stage .mac { transform: perspective(2000px) rotateX(calc((1 - var(--p)) * 24deg)) scale(calc(.9 + var(--p) * .1)); transform-origin: 50% 0; will-change: transform; }
-.stage .device { position: absolute; width: 21%; bottom: 0; will-change: transform; }
-.stage .device.l { left: 0; transform: translateY(calc((1 - var(--p)) * 140px)) rotate(-4deg); }
-.stage .device.r { right: 0; transform: translateY(calc((1 - var(--p)) * 200px)) rotate(4deg); }
-
-/* SpendCue money card */
-.money { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 40px; margin-top: 72px; border-radius: 40px; padding: 64px 0 0 72px; min-height: 600px;
-  background: radial-gradient(90% 90% at 85% 15%, #1b6a4b 0%, #0a3324 45%, #06170f 100%); border: 1px solid rgb(79 216 160 / .18); }
-.money::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; background-image: linear-gradient(rgb(255 255 255 / .06) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .06) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(70% 70% at 30% 50%, #000, transparent); mask-image: radial-gradient(70% 70% at 30% 50%, #000, transparent); }
-.money-copy { padding-bottom: 72px; }
-.money .label { color: #8ae6bd; }
-.amount { font-size: clamp(76px, 12.5vw, 190px); line-height: .9; letter-spacing: -.065em; font-weight: 700; margin: 18px 0 6px; font-variant-numeric: tabular-nums; white-space: nowrap;
-  background: linear-gradient(180deg, #ffffff 30%, #9ff0c8); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.amount sup { font-size: .42em; vertical-align: .95em; letter-spacing: -.02em; margin-right: .04em; }
-.per { font-size: 20px; color: rgb(255 255 255 / .72); margin: 0 0 40px; }
-.per em { color: #fff; font-size: 1.15em; }
-.money-stats { display: flex; border-top: 1px solid rgb(255 255 255 / .14); max-width: 520px; }
-.money-stats div { flex: 1; padding: 18px 18px 0 0; }
-.money-stats div + div { border-left: 1px solid rgb(255 255 255 / .14); padding-left: 22px; }
-.money-stats b { display: block; font-size: 28px; letter-spacing: -.03em; font-weight: 650; }
-.money-stats span { font-size: 14px; color: rgb(255 255 255 / .6); }
-.sample { margin: 26px 0 0; font-size: 12.5px; color: rgb(255 255 255 / .4); }
-.money .device { width: min(320px, 100%); justify-self: center; align-self: end; margin-bottom: -150px; transform: rotate(4deg); }
-.money .glow { position: absolute; right: 8%; bottom: -10%; width: 420px; height: 420px; border-radius: 50%; background: #3fd497; filter: blur(110px); opacity: .35; z-index: -1; }
-
-.spend > .wrap > .actions { margin-top: 56px; }
-
-/* ---------- Lab ---------- */
-.lab { padding: 130px 0 0; }
-.lab-card { display: grid; grid-template-columns: auto 1fr auto; gap: 36px; align-items: center; padding: 40px 48px; border-radius: 32px; border: 1px solid var(--line); background: linear-gradient(180deg, rgb(255 255 255 / .05), rgb(255 255 255 / .015)); }
-.flask { width: 96px; height: 96px; border-radius: 23%; position: relative; display: grid; place-items: center; font: italic 56px/1 var(--serif);
-  background: rgb(255 255 255 / .03); box-shadow: inset 0 0 0 1px var(--line-2), 0 0 70px -10px rgb(240 189 85 / .4); }
-.flask::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; padding: 2px; background: conic-gradient(from var(--spin), var(--indigo), #d39bff, var(--gold), var(--emerald), var(--indigo));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 6s linear infinite; }
-.lab-card .label { display: block; margin-bottom: 10px; }
-.lab-card h2 { font-size: clamp(30px, 3.4vw, 46px); margin: 0 0 8px; letter-spacing: -.04em; }
-.lab-card h2 em { color: var(--gold); }
-.lab-card p { margin: 0; color: var(--muted); max-width: 34em; }
-
-
-footer { position: relative; margin-top: 140px; padding-top: 110px; border-top: 1px solid var(--line); overflow: hidden; isolation: isolate; }
-footer::before { content: ""; position: absolute; left: 50%; top: -280px; width: 900px; height: 560px; transform: translateX(-50%); z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgb(128 124 255 / .22), transparent); }
-.contact { text-align: center; }
-.contact .label { display: block; margin-bottom: 20px; }
-.contact h2 { font-size: clamp(40px, 5.4vw, 76px); margin-bottom: 18px; }
-.mail { display: inline-block; font: italic 400 clamp(34px, 6vw, 88px)/1.1 var(--serif); text-decoration: none; letter-spacing: -.02em;
-  background: linear-gradient(90deg, var(--gold), var(--gold)) 0 100% / 0 2px no-repeat; transition: background-size .6s var(--ease); padding-bottom: 6px; }
-.mail:hover { background-size: 100% 2px; }
-.foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 28px; margin-top: 90px; padding: 44px 0; border-top: 1px solid var(--line); font-size: 15px; }
-.foot-grid h4 { margin: 0 0 14px; font: 500 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
-.foot-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
-.foot-grid a { text-decoration: none; color: var(--muted); }
-.foot-grid a:hover { color: var(--ink); }
-.foot-grid p { margin: 14px 0 0; color: var(--dim); font-size: 14px; max-width: 22em; }
-.giant { font-weight: 800; font-size: clamp(70px, 18.5vw, 280px); line-height: .8; letter-spacing: -.065em; text-align: center; white-space: nowrap; user-select: none; margin: 0 0 -.12em;
-  background: linear-gradient(180deg, rgb(244 242 238 / .9), rgb(244 242 238 / 0) 88%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.giant em { font-weight: 400; letter-spacing: -.035em; padding-right: .04em; }
-.legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 22px 0 34px; font-size: 13px; color: var(--dim); border-top: 1px solid var(--line); position: relative; }
-
-/* ---------- Reveal ---------- */
-.js [data-reveal] { opacity: 0; transform: translateY(32px); filter: blur(8px); transition: opacity 1s var(--ease), transform 1.1s var(--ease), filter 1s var(--ease); transition-delay: var(--d, 0s); }
-.js [data-reveal].in { opacity: 1; transform: none; filter: none; }
-
-/* ---------- Responsive ---------- */
-@media (max-width: 1000px) {
-  .money { grid-template-columns: 1fr; padding: 56px 40px 0; min-height: 0; }
-  .money-copy { padding-bottom: 0; }
-  .money .device { width: 280px; margin-bottom: -180px; }
-  .foot-grid { grid-template-columns: 1fr 1fr; }
-  .foot-grid > :first-child { grid-column: 1 / -1; }
-  .lab-card { grid-template-columns: auto 1fr; }
-  .lab-card .btn { grid-column: 1 / -1; justify-self: start; }
-}
-@media (max-width: 720px) {
-  body { font-size: 16px; }
-  .wrap { width: calc(100% - 32px); }
-  .nav { top: 10px; }
-  .nav-links > a { display: none; }
-  .dl-panel { width: min(340px, calc(100vw - 24px)); right: -7px; }
-  .hero { padding: 132px 0 80px; }
-  h1 { font-size: clamp(50px, 15vw, 80px); }
-  .eyebrow { font-size: 12.5px; }
-  .shelf { gap: 14px; padding: 0; margin-top: 70px; }
-  .shelf::before { top: 96px; }
-  .shelf::after { top: 97px; height: 60px; }
-  .tile { width: 104px; }
-  .tile .site { font-size: 12px; padding: 5px 10px; }
-  .btn-app { width: 100%; max-width: 300px; }
-  .float, .icon { width: 86px; height: 86px; }
-  .icon.ghost { font-size: 44px; }
-  .tile .name { margin-top: 50px; font-size: 14px; }
-  .tile .kind { font-size: 11.5px; }
-  .marquee { padding: 20px 0; }
-  .chapter { padding-top: 120px; }
-  .stage { padding: 0 4% 12%; margin-top: 64px; }
-  .stage .device { width: 27%; }
-  .money { border-radius: 30px; padding: 40px 24px 0; margin-top: 64px; }
-  .money .device { width: 220px; margin-bottom: -150px; }
-  .money-stats b { font-size: 22px; }
-  .lab { padding-top: 100px; }
-  .lab-card { grid-template-columns: 1fr; gap: 22px; padding: 28px 24px; border-radius: 26px; }
-  .flask { width: 72px; height: 72px; font-size: 42px; }
-  footer { margin-top: 100px; padding-top: 90px; }
-  .foot-grid { margin-top: 70px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .js [data-reveal] { opacity: 1; transform: none; filter: none; }
-}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-dl" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#0b0b0d"/><path d="M14 8v9m0 0 3.8-3.8M14 17l-3.8-3.8M9 20.5h10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10m0 0L9 4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-down" viewBox="0 0 16 16"><path d="M8 3v10m0 0 4-4m-4 4L4 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-out" viewBox="0 0 16 16"><path d="M5.5 10.5 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-g" viewBox="0 0 64 64"><path d="M44 22a15 15 0 1 0 2 15H33" fill="none" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8 7.5 9.5 4.3-1.5 7.5-4.9 7.5-9.5V6Z"/><path d="m8.8 12.2 2.3 2.3 4.2-4.6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 100 100"><path d="m50 0 8 32 27-17-17 27 32 8-32 8 17 27-27-17-8 32-8-32-27 17 17-27L0 50l32-8-17-27 27 17Z" fill="currentColor" stroke="none"/></symbol>
 </svg>
 
-<nav class="nav" aria-label="Main">
-  <a class="brand" href="#top" aria-label="Gamal Labs home"><span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#i-g"/></svg></span>Gamal Labs</a>
-  <div class="nav-links">
-    <a href="#clipboard">Pip Clipboard</a>
-    <a href="#spendcue">SpendCue</a>
-    <a href="#lab">In the lab</a>
-    <details class="dl">
-      <summary class="cta">Download <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-down"/></svg></summary>
-      <div class="dl-panel">
-        <div class="dl-app">
+<header class="site-header">
+  <nav class="nav wrap" aria-label="Main">
+    <a class="brand" href="#top" aria-label="Gamal Labs home"><span class="brand-mark" aria-hidden="true">g</span>gamal labs</a>
+    <div class="nav-links">
+      <a href="#apps">Our apps <sup>02</sup></a>
+      <a href="#studio">The studio</a>
+      <a href="#lab">In the lab <i class="dot" aria-hidden="true"></i></a>
+    </div>
+    <details class="menu">
+      <summary>Get the apps <svg aria-hidden="true"><use href="#i-down"/></svg></summary>
+      <div class="menu-panel">
+        <p class="menu-title">Download or read more</p>
+        <div class="menu-app">
           <img src="assets/icon-clipboard.png" alt="" width="48" height="48">
           <div><b>Pip Clipboard</b><span>iPhone · iPad · Mac</span></div>
-          <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/app/id6761011158">App Store</a><a class="mini" href="/Clipboard-pro-plus/">Website</a></div>
+          <div class="menu-actions">
+            <a class="pill dark" href="https://apps.apple.com/app/id6761011158"><svg aria-hidden="true"><use href="#i-dl"/></svg>App Store</a>
+            <a class="pill" href="/Clipboard-pro-plus/">Website <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+          </div>
         </div>
-        <div class="dl-app">
+        <div class="menu-app">
           <img src="assets/icon-spendcue.png" alt="" width="48" height="48">
           <div><b>SpendCue</b><span>iPhone · iPad</span></div>
-          <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/app/id6767021493">App Store</a><a class="mini" href="/SpendCueApp/">Website</a></div>
+          <div class="menu-actions">
+            <a class="pill dark" href="https://apps.apple.com/app/id6767021493"><svg aria-hidden="true"><use href="#i-dl"/></svg>App Store</a>
+            <a class="pill" href="/SpendCueApp/">Website <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+          </div>
         </div>
       </div>
     </details>
-  </div>
-</nav>
+  </nav>
+</header>
 
-<main id="top">
+<main id="main">
   <!-- Hero -->
-  <header class="hero" id="hero">
-    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="wrap">
-      <span class="eyebrow" data-reveal><b>2 APPS LIVE</b>An independent studio for Apple devices</span>
-      <h1 data-reveal style="--d:.08s">Small apps, <em>quietly</em> brilliant.</h1>
-      <p class="lede" data-reveal style="--d:.16s">Gamal Labs makes private, native apps for iPhone, iPad and Mac. Each one does a single everyday job, beautifully. <strong>No accounts. No ads. Your data stays yours.</strong></p>
-      <div class="cta-row" data-reveal style="--d:.24s">
-        <a class="btn btn-app" href="https://apps.apple.com/app/id6761011158"><img src="assets/icon-clipboard.png" alt="" width="34" height="34"><span><small>Download</small>Pip Clipboard</span></a>
-        <a class="btn btn-app" href="https://apps.apple.com/app/id6767021493"><img src="assets/icon-spendcue.png" alt="" width="34" height="34"><span><small>Download</small>SpendCue</span></a>
+  <section class="hero wrap" id="top" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow" data-reveal><i class="dot" aria-hidden="true"></i>Independent studio · Apple platforms</p>
+      <h1 id="hero-title" data-reveal style="--d:.05s">Small apps.<br>Quietly <em>brilliant.</em></h1>
+      <p class="lede" data-reveal style="--d:.1s">A little less friction, a little more delight. We make focused, private apps that feel right at home on your iPhone, iPad and Mac.</p>
+      <div class="hero-downloads" data-reveal style="--d:.15s">
+        <a class="store" href="https://apps.apple.com/app/id6761011158">
+          <img src="assets/icon-clipboard.png" alt="" width="40" height="40">
+          <span><small>Download on the App Store</small>Pip Clipboard</span>
+          <svg aria-hidden="true"><use href="#i-dl"/></svg>
+        </a>
+        <a class="store" href="https://apps.apple.com/app/id6767021493">
+          <img src="assets/icon-spendcue.png" alt="" width="40" height="40">
+          <span><small>Download on the App Store</small>SpendCue</span>
+          <svg aria-hidden="true"><use href="#i-dl"/></svg>
+        </a>
       </div>
-
-      <div class="shelf" data-reveal style="--d:.34s" aria-label="Apps">
-        <div class="tile" style="--glow: var(--indigo)">
-          <a class="lift" href="#clipboard" aria-label="About Pip Clipboard"><span class="float"><img class="icon light" src="assets/icon-clipboard.png" alt="" width="512" height="512"></span></a>
-          <span class="name">Pip Clipboard</span><span class="kind">iPhone · iPad · Mac</span>
-          <a class="site" href="/Clipboard-pro-plus/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
-        </div>
-        <div class="tile" style="--glow: var(--emerald)">
-          <a class="lift" href="#spendcue" aria-label="About SpendCue"><span class="float"><img class="icon" src="assets/icon-spendcue.png" alt="" width="512" height="512"></span></a>
-          <span class="name">SpendCue</span><span class="kind">iPhone · iPad</span>
-          <a class="site" href="/SpendCueApp/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
-        </div>
-        <div class="tile next" style="--glow: var(--gold)">
-          <a class="lift" href="#lab" aria-label="About the next app"><span class="float"><span class="icon ghost" aria-hidden="true">?</span></span></a>
-          <span class="name">Next app</span><span class="kind">In the lab</span>
-          <a class="site" href="#lab">Get notified</a>
-        </div>
-      </div>
+      <p class="hero-sites" data-reveal style="--d:.2s">Or read more first: <a href="/Clipboard-pro-plus/">Pip Clipboard website</a> · <a href="/SpendCueApp/">SpendCue website</a></p>
     </div>
-  </header>
 
-  <!-- Marquee -->
-  <div class="marquee" aria-label="What every Gamal Labs app promises">
-    <div class="track">
-      <ul>
-        <li>No accounts</li><li class="s" aria-hidden="true">✦</li>
-        <li>No ads</li><li class="s" aria-hidden="true">✦</li>
-        <li><em>On-device</em> AI</li><li class="s" aria-hidden="true">✦</li>
-        <li>Private iCloud sync</li><li class="s" aria-hidden="true">✦</li>
-        <li>Built natively for Apple</li><li class="s" aria-hidden="true">✦</li>
-        <li>English · العربية · Français · Español</li><li class="s" aria-hidden="true">✦</li>
-        <li>One job, <em>done well</em></li><li class="s" aria-hidden="true">✦</li>
-      </ul>
-      <ul aria-hidden="true">
-        <li>No accounts</li><li class="s">✦</li>
-        <li>No ads</li><li class="s">✦</li>
-        <li><em>On-device</em> AI</li><li class="s">✦</li>
-        <li>Private iCloud sync</li><li class="s">✦</li>
-        <li>Built natively for Apple</li><li class="s">✦</li>
-        <li>English · العربية · Français · Español</li><li class="s">✦</li>
-        <li>One job, <em>done well</em></li><li class="s">✦</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Pip Clipboard -->
-  <section class="chapter clip" id="clipboard" aria-labelledby="clip-title">
-    <div class="wrap">
-      <div class="chapter-head">
-        <div class="kicker" data-reveal><img src="assets/icon-clipboard.png" alt="" width="40" height="40"><span class="label">EXP-001 · Pip Clipboard</span></div>
-        <h2 id="clip-title" data-reveal style="--d:.06s">Keep the good stuff. <em>Use it again.</em></h2>
-        <p class="lead" data-reveal style="--d:.12s">Everything you copy, from text and links to your go-to replies, saved, tagged and searchable on your iPhone, iPad and Mac.</p>
-        <div class="actions" data-reveal style="--d:.18s">
-          <a class="store" href="https://apps.apple.com/app/id6761011158" aria-label="Download Pip Clipboard on the App Store">
-            <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
-          </a>
-          <a class="btn btn-glass" href="/Clipboard-pro-plus/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
-        </div>
-        <nav class="links" aria-label="Pip Clipboard help and policies" data-reveal style="--d:.22s">
-          <a href="/Clipboard-pro-plus/support/">Support</a><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a>
-        </nav>
+    <div class="hero-art" data-reveal style="--d:.12s">
+      <div class="orbit o1" aria-hidden="true"></div>
+      <div class="orbit o2" aria-hidden="true"></div>
+      <div class="dots" aria-hidden="true"></div>
+      <a class="tile pip" href="#clipboard">
+        <span class="tile-card"><img src="assets/icon-clipboard.png" alt="" width="512" height="512"></span>
+        <span class="tile-name">Pip Clipboard <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="tile spend" href="#spendcue">
+        <span class="tile-card"><img src="assets/icon-spendcue.png" alt="" width="512" height="512"></span>
+        <span class="tile-name">SpendCue <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <div class="note keep" aria-hidden="true">
+        <span class="keycap">⌘C</span>
+        <span>A good idea?<b>Keep that.</b></span>
       </div>
-
-      <div class="stage" data-scroll>
-        <div class="mac">
-          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Pip Clipboard</span></div>
-          <img src="assets/clipboard-mac-dark.jpg" alt="Pip Clipboard on Mac searching saved clips, with a preview pane" width="1600" height="1067" loading="lazy">
-        </div>
-        <div class="device l"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-history.jpg" alt="Clipboard history on iPhone with text, link and image clips" width="690" height="1500" loading="lazy"></div></div></div></div>
-        <div class="device r"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-keyboard.jpg" alt="The Pip keyboard inside a messaging app" width="690" height="1500" loading="lazy"></div></div></div></div>
+      <div class="note money" aria-hidden="true">
+        <span class="note-label">Safe to spend today</span>
+        <span class="note-amount">$118.48</span>
+        <span class="note-foot"><i class="dot green"></i>Bills covered until payday</span>
       </div>
-
+      <div class="stamp" aria-hidden="true"><svg><use href="#i-shield"/></svg><span>Your data.<br>Always yours.</span></div>
+      <svg class="star" aria-hidden="true"><use href="#i-star"/></svg>
     </div>
   </section>
 
-  <!-- SpendCue -->
-  <section class="chapter spend" id="spendcue" aria-labelledby="spend-title">
-    <div class="wrap">
-      <div class="chapter-head">
-        <div class="kicker" data-reveal><img src="assets/icon-spendcue.png" alt="" width="40" height="40"><span class="label">EXP-002 · SpendCue</span></div>
-        <h2 id="spend-title" data-reveal style="--d:.06s">Know what’s safe to spend <em>today.</em></h2>
-        <p class="lead" data-reveal style="--d:.12s">A calm daily budget that turns your balance, bills and next payday into one number you can trust, with every record kept on your device.</p>
-        <div class="actions" data-reveal style="--d:.18s">
-          <a class="store" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store">
-            <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
+  <div class="strip wrap" data-reveal>
+    <p><em>Good software.</em> Less noise.</p>
+    <ul>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>No accounts</li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>No ads</li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>Private by design</li>
+      <li><svg aria-hidden="true"><use href="#i-check"/></svg>Native to Apple</li>
+    </ul>
+  </div>
+
+  <!-- Apps -->
+  <section class="apps wrap" id="apps" aria-labelledby="apps-title">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow" data-reveal>The everyday collection</p>
+        <h2 id="apps-title" data-reveal style="--d:.05s">A small family.<br><em>A big difference.</em></h2>
+      </div>
+      <p data-reveal style="--d:.1s">Two thoughtful tools, each with one job, both made to make your day a little lighter.</p>
+    </div>
+
+    <!-- Pip Clipboard -->
+    <article class="product pip" id="clipboard" aria-labelledby="pip-title" data-reveal>
+      <div class="product-copy">
+        <div class="topline"><span>01 · Productivity</span><span>iPhone · iPad · Mac</span></div>
+        <div class="product-id">
+          <img src="assets/icon-clipboard.png" alt="" width="56" height="56" loading="lazy">
+          <h3 id="pip-title">Pip Clipboard</h3>
+        </div>
+        <p class="tagline">Good things deserve <em>to be kept.</em></p>
+        <p class="description">That perfect reply. A link for later. The idea you almost lost. Everything you copy, saved, tagged and ready when you need it.</p>
+        <ul class="features">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Text, links and images, all in one place</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Find anything fast with tags and search</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>A keyboard to paste clips in any app</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>At home on iPhone, iPad and Mac</li>
+        </ul>
+        <div class="actions">
+          <a class="store" href="https://apps.apple.com/app/id6761011158" aria-label="Download Pip Clipboard on the App Store">
+            <svg class="lead-icon" aria-hidden="true"><use href="#i-dl"/></svg>
+            <span><small>Download on the</small>App Store</span>
           </a>
-          <a class="btn btn-glass" href="/SpendCueApp/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+          <a class="button ghost" href="/Clipboard-pro-plus/">Visit website <svg aria-hidden="true"><use href="#i-out"/></svg></a>
         </div>
-        <nav class="links" aria-label="SpendCue help and policies" data-reveal style="--d:.22s">
-          <a href="/SpendCueApp/#help-title">Support</a><a href="/SpendCueApp/privacy/">Privacy policy</a><a href="/SpendCueApp/terms/">Terms of use</a>
-        </nav>
+        <p class="policies"><a href="/Clipboard-pro-plus/support/">Support</a><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a></p>
       </div>
 
-      <div class="money" data-reveal>
-        <div class="money-copy">
-          <span class="label">Daily guide · Today</span>
-          <div class="amount"><sup>$</sup><span id="count">118.48</span></div>
-          <p class="per">per day, <em>safe to spend.</em></p>
-          <div class="money-stats">
-            <div><b>$3,436</b><span>available</span></div>
-            <div><b>29 days</b><span>until payday</span></div>
+      <div class="product-visual">
+        <div class="visual-top">
+          <span class="caption">Your second brain, with a little personality.</span>
+          <div class="tabs" role="tablist" aria-label="Pip Clipboard screenshots">
+            <button role="tab" id="t-mac" aria-controls="p-mac" aria-selected="true">Mac</button>
+            <button role="tab" id="t-iphone" aria-controls="p-iphone" aria-selected="false" tabindex="-1">iPhone</button>
+            <button role="tab" id="t-kb" aria-controls="p-kb" aria-selected="false" tabindex="-1">Keyboard</button>
           </div>
-          <p class="sample">Sample numbers from the app.</p>
         </div>
-        <div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-home-dark.jpg" alt="SpendCue home screen in dark mode showing the daily guide" width="639" height="1390" loading="lazy"></div></div></div></div>
-        <div class="glow" aria-hidden="true"></div>
+        <div class="panel" role="tabpanel" id="p-mac" aria-labelledby="t-mac">
+          <div class="mac">
+            <div class="mac-bar" aria-hidden="true"><i></i><i></i><i></i><span>Pip Clipboard</span></div>
+            <img src="assets/clipboard-mac-dark.jpg" alt="Pip Clipboard on Mac: searching saved clips, with tags and a preview pane" width="1600" height="1067" loading="lazy">
+          </div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-iphone" aria-labelledby="t-iphone" hidden>
+          <div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-history.jpg" alt="Pip Clipboard history on iPhone with text, link and image clips" width="690" height="1500" loading="lazy"></div></div></div></div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-kb" aria-labelledby="t-kb" hidden>
+          <div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-keyboard.jpg" alt="The Pip keyboard showing saved clips inside a messaging app" width="690" height="1500" loading="lazy"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SpendCue -->
+    <article class="product spend" id="spendcue" aria-labelledby="spend-title" data-reveal>
+      <div class="product-copy">
+        <div class="topline"><span>02 · Personal finance</span><span>iPhone · iPad</span></div>
+        <div class="product-id">
+          <img src="assets/icon-spendcue.png" alt="" width="56" height="56" loading="lazy">
+          <h3 id="spend-title">SpendCue</h3>
+        </div>
+        <p class="tagline">Less money math. <em>More peace of mind.</em></p>
+        <p class="description">Your balance, your bills, your next payday. SpendCue turns it all into one calm, clear number: what’s safe to spend today.</p>
+        <ul class="features">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>A daily spending guide that makes sense</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Bills and subscriptions before payday</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>No bank login. Records stay on your device</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>English, العربية, Français and Español</li>
+        </ul>
+        <div class="actions">
+          <a class="store" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store">
+            <svg class="lead-icon" aria-hidden="true"><use href="#i-dl"/></svg>
+            <span><small>Download on the</small>App Store</span>
+          </a>
+          <a class="button ghost" href="/SpendCueApp/">Visit website <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+        </div>
+        <p class="policies"><a href="/SpendCueApp/#help-title">Support</a><a href="/SpendCueApp/privacy/">Privacy policy</a><a href="/SpendCueApp/terms/">Terms of use</a></p>
       </div>
 
+      <div class="product-visual">
+        <div class="visual-top"><span class="caption">A clearer picture. A calmer day.</span></div>
+        <div class="rings" aria-hidden="true"></div>
+        <div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-home-dark.jpg" alt="SpendCue home screen showing a daily guide of $118.48" width="639" height="1390" loading="lazy"></div></div></div></div>
+        <div class="guide" aria-hidden="true">
+          <span class="note-label">Your daily guide</span>
+          <span class="guide-amount"><sup>$</sup>118<small>.48</small></span>
+          <span class="guide-sub">per day, <em>safe to spend</em></span>
+          <span class="guide-stats"><span><b>$3,436</b>available</span><span><b>29</b>days to payday</span></span>
+        </div>
+        <span class="sample">Sample numbers from the app</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- Studio -->
+  <section class="studio" id="studio" aria-labelledby="studio-title">
+    <div class="wrap">
+      <div class="studio-head">
+        <div>
+          <p class="eyebrow" data-reveal>Small studio. Strong convictions.</p>
+          <h2 id="studio-title" data-reveal style="--d:.05s">Software should make life lighter. <em>We mean it.</em></h2>
+        </div>
+        <p data-reveal style="--d:.1s">Gamal Labs is an independent studio with a simple belief: the best apps do one thing beautifully, respect your privacy, and get out of your way.</p>
+      </div>
+      <div class="values">
+        <div data-reveal><span>01</span><h3>Your life stays yours.</h3><p>No accounts to create and no ads to dodge. Your data lives on your devices and in your own iCloud.</p></div>
+        <div data-reveal style="--d:.06s"><span>02</span><h3>Feels like it belongs.</h3><p>Built natively for Apple devices, with the familiar details that make an app feel right at home.</p></div>
+        <div data-reveal style="--d:.12s"><span>03</span><h3>Small on purpose.</h3><p>One everyday problem, thoughtfully solved. Less clutter, more care, nothing extra in your way.</p></div>
+      </div>
     </div>
   </section>
 
   <!-- Lab -->
-  <section class="lab" id="lab" aria-labelledby="lab-title">
-    <div class="wrap">
-      <div class="lab-card" data-reveal>
-        <div class="flask" aria-hidden="true">?</div>
-        <div>
-          <span class="label">EXP-003 · Status: brewing</span>
-          <h2 id="lab-title">Something new is <em>on the bench.</em></h2>
-          <p>The next Gamal Labs app is in development. Same rules: private, native, one job done well.</p>
-        </div>
-        <a class="btn btn-light" href="mailto:hello@gamallabs.com?subject=Tell%20me%20when%20EXP-003%20ships">Notify me <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <section class="lab wrap" id="lab" aria-labelledby="lab-title">
+    <div class="lab-card" data-reveal>
+      <div class="lab-icon" aria-hidden="true">?</div>
+      <div>
+        <p class="eyebrow"><i class="dot" aria-hidden="true"></i>On the workbench</p>
+        <h2 id="lab-title">A little something <em>is brewing.</em></h2>
+        <p>Our next app is taking shape. Same care, same principles, a new everyday job.</p>
       </div>
+      <a class="button dark" href="mailto:hello@gamallabs.com?subject=Tell%20me%20when%20the%20next%20app%20ships">Keep me in the loop <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </section>
-
 </main>
 
-<footer id="contact">
+<footer class="footer" id="contact">
   <div class="wrap">
-    <div class="contact" data-reveal>
-      <span class="label">Contact</span>
-      <h2>Ideas, bugs or just hello?</h2>
-      <a class="mail" href="mailto:hello@gamallabs.com">hello@gamallabs.com</a>
-    </div>
-    <div class="foot-grid">
+    <div class="footer-top">
       <div>
-        <a class="brand" href="#top"><span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#i-g"/></svg></span>Gamal Labs</a>
-        <p>Small, private apps for iPhone, iPad and Mac.</p>
+        <p class="eyebrow">Good things start with a hello</p>
+        <a class="talk" href="mailto:hello@gamallabs.com">Let’s <em>talk</em> <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+        <p class="mail">hello@gamallabs.com</p>
       </div>
-      <div><h4>Pip Clipboard</h4><ul>
-        <li><a href="https://apps.apple.com/app/id6761011158">Download on the App Store</a></li>
-        <li><a href="/Clipboard-pro-plus/">Website</a></li>
-        <li><a href="/Clipboard-pro-plus/support/">Support</a></li>
-        <li><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a></li></ul></div>
-      <div><h4>SpendCue</h4><ul>
-        <li><a href="https://apps.apple.com/app/id6767021493">Download on the App Store</a></li>
-        <li><a href="/SpendCueApp/">Website</a></li>
-        <li><a href="/SpendCueApp/#help-title">Support</a></li>
-        <li><a href="/SpendCueApp/privacy/">Privacy policy</a></li>
-        <li><a href="/SpendCueApp/terms/">Terms of use</a></li></ul></div>
-      <div><h4>Studio</h4><ul>
-        <li><a href="#lab">In the lab</a></li>
-        <li><a href="mailto:hello@gamallabs.com">Email us</a></li></ul></div>
+      <nav class="footer-cols" aria-label="Footer">
+        <div>
+          <h4>Pip Clipboard</h4>
+          <a href="https://apps.apple.com/app/id6761011158">Download on the App Store</a>
+          <a href="/Clipboard-pro-plus/">Website</a>
+          <a href="/Clipboard-pro-plus/support/">Support</a>
+          <a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a>
+        </div>
+        <div>
+          <h4>SpendCue</h4>
+          <a href="https://apps.apple.com/app/id6767021493">Download on the App Store</a>
+          <a href="/SpendCueApp/">Website</a>
+          <a href="/SpendCueApp/#help-title">Support</a>
+          <a href="/SpendCueApp/privacy/">Privacy policy</a>
+          <a href="/SpendCueApp/terms/">Terms of use</a>
+        </div>
+        <div>
+          <h4>Studio</h4>
+          <a href="#studio">Our principles</a>
+          <a href="#lab">In the lab</a>
+          <a href="mailto:hello@gamallabs.com">Email us</a>
+        </div>
+      </nav>
     </div>
-  </div>
-  <div class="giant" aria-hidden="true">Gamal <em>Labs</em></div>
-  <div class="wrap legal">
-    <span>© <span id="year">2026</span> Gamal Labs. Made with care.</span>
-    <span>App Store is a service mark of Apple Inc.</span>
+    <div class="wordmark" aria-hidden="true">gamal labs<svg><use href="#i-star"/></svg></div>
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Gamal Labs. Independent by choice.</span>
+      <span>App Store is a service mark of Apple Inc.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
   </div>
 </footer>
 
-<script>
-(() => {
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const fine = matchMedia("(pointer: fine)").matches;
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // Download menu: close on outside click, Escape, or after choosing a link
-  const dl = document.querySelector(".dl");
-  document.addEventListener("click", e => { if (dl.open && !dl.contains(e.target)) dl.open = false; });
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && dl.open) { dl.open = false; dl.querySelector("summary").focus(); } });
-  dl.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { dl.open = false; }));
-
-  // SpendCue's daily number counts up when it scrolls into view
-  const counter = document.getElementById("count");
-  const countUp = () => {
-    if (reduce || counter.dataset.done) return;
-    counter.dataset.done = "1";
-    const target = 118.48, t0 = performance.now(), dur = 1800;
-    const tick = now => {
-      const k = Math.min(1, (now - t0) / dur);
-      counter.textContent = (target * (1 - Math.pow(1 - k, 4))).toFixed(2);
-      if (k < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-
-  // Reveal on scroll
-  const items = document.querySelectorAll("[data-reveal]");
-  if (reduce || !("IntersectionObserver" in window)) items.forEach(el => el.classList.add("in"));
-  else {
-    const io = new IntersectionObserver(entries => entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add("in");
-      if (e.target.classList.contains("money")) countUp();
-      io.unobserve(e.target);
-    }), { rootMargin: "0px 0px -10% 0px", threshold: .1 });
-    items.forEach(el => io.observe(el));
-  }
-  if (reduce) return;
-
-  // The Mac window flattens and the phones rise as the stage scrolls into view
-  const stages = [...document.querySelectorAll("[data-scroll]")];
-  let ticking = false;
-  const update = () => {
-    ticking = false;
-    stages.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      const p = Math.min(1, Math.max(0, (innerHeight - top) / (innerHeight * .75)));
-      el.style.setProperty("--p", p.toFixed(3));
-    });
-  };
-  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener("resize", update);
-  update();
-
-  if (!fine) return;
-
-  // Hero spotlight follows the cursor
-  const hero = document.getElementById("hero");
-  hero.addEventListener("pointermove", e => {
-    const r = hero.getBoundingClientRect();
-    hero.style.setProperty("--mx", (e.clientX - r.left) + "px");
-    hero.style.setProperty("--my", (e.clientY - r.top) + "px");
-  });
-})();
-</script>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9b8ca045cc294328ad5af749bdc2074c"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="assets/site.js" defer></script>
+<!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9b8ca045cc294328ad5af749bdc2074c"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
