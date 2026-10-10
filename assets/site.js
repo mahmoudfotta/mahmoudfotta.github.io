@@ -31,6 +31,14 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape" && dl.open) { dl.open = false; dl.querySelector("summary").focus(); } });
   dl.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { dl.open = false; }));
 
+  // ---- Copy the email address ----
+  const copy = document.querySelector(".copy");
+  copy.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(copy.dataset.copy); } catch (e) { location.href = "mailto:" + copy.dataset.copy; return; }
+    copy.classList.add("done"); copy.firstElementChild.textContent = "Copied ✓";
+    setTimeout(() => { copy.classList.remove("done"); copy.firstElementChild.textContent = "Copy address"; }, 2000);
+  });
+
   // ---- SpendCue's daily number counts up when it scrolls into view ----
   const counter = document.getElementById("count");
   const countUp = () => {

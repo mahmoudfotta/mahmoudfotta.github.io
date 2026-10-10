@@ -39,7 +39,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <svg class="sprite" aria-hidden="true">
-  <symbol id="i-dl" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="currentColor"/><path d="M14 8v9m0 0 3.8-3.8M14 17l-3.8-3.8M9 20.5h10" fill="none" style="stroke: var(--cta-fg)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="currentColor"/><path d="M14 8v9m0 0 3.8-3.8M14 17l-3.8-3.8M9 20.5h10" fill="none" style="stroke: var(--cta-bg)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10m0 0L9 4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-down" viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-out" viewBox="0 0 16 16"><path d="M5.5 10.5 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -224,35 +224,41 @@
   <div class="wrap">
     <div class="contact" data-reveal>
       <span class="label">Contact</span>
-      <h2>Ideas, bugs or just hello?</h2>
-      <a class="mail" href="mailto:hello@gamallabs.com">hello@gamallabs.com</a>
-    </div>
-    <div class="foot-grid">
-      <div>
-        <a class="brand" href="#top"><span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#i-g"/></svg></span>Gamal Labs</a>
-        <p>Small, private apps for iPhone, iPad and Mac.</p>
+      <h2>Ideas, bugs or <em>just hello?</em></h2>
+      <p>Every message is read by the person who builds the apps.</p>
+      <div class="contact-actions">
+        <a class="btn btn-light" href="mailto:hello@gamallabs.com">Email hello@gamallabs.com <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <button class="btn btn-glass copy" type="button" data-copy="hello@gamallabs.com"><span>Copy address</span></button>
       </div>
-      <div><h4>Pip Clipboard</h4><ul>
-        <li><a href="https://apps.apple.com/app/id6761011158">Download on the App Store</a></li>
-        <li><a href="/Clipboard-pro-plus/">Website</a></li>
-        <li><a href="/Clipboard-pro-plus/support/">Support</a></li>
-        <li><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a></li></ul></div>
-      <div><h4>SpendCue</h4><ul>
-        <li><a href="https://apps.apple.com/app/id6767021493">Download on the App Store</a></li>
-        <li><a href="/SpendCueApp/">Website</a></li>
-        <li><a href="/SpendCueApp/#help-title">Support</a></li>
-        <li><a href="/SpendCueApp/privacy/">Privacy policy</a></li>
-        <li><a href="/SpendCueApp/terms/">Terms of use</a></li></ul></div>
-      <div><h4>Studio</h4><ul>
-        <li><a href="#lab">In the lab</a></li>
-        <li><a href="mailto:hello@gamallabs.com">Email us</a></li></ul></div>
+    </div>
+
+    <div class="foot">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#i-g"/></svg></span>Gamal Labs</a>
+        <p>Small, private apps for iPhone, iPad and Mac. No accounts, no ads, your data stays yours.</p>
+        <nav class="foot-studio" aria-label="Studio">
+          <a href="#clipboard">Pip Clipboard</a><a href="#spendcue">SpendCue</a><a href="#lab">In the lab</a><a href="mailto:hello@gamallabs.com">Email us</a>
+        </nav>
+      </div>
+      <div class="foot-app">
+        <div class="foot-app-head"><img class="on-white" src="assets/icon-clipboard.png" alt="" width="52" height="52" loading="lazy"><div><b>Pip Clipboard</b><span>iPhone · iPad · Mac</span></div></div>
+        <a class="mini solid" href="https://apps.apple.com/app/id6761011158"><svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg>Download on the App Store</a>
+        <nav aria-label="Pip Clipboard pages"><a href="/Clipboard-pro-plus/">Website</a><a href="/Clipboard-pro-plus/support/">Support</a><a href="/Clipboard-pro-plus/privacy-policy/">Privacy</a></nav>
+      </div>
+      <div class="foot-app">
+        <div class="foot-app-head"><img src="assets/icon-spendcue.png" alt="" width="52" height="52" loading="lazy"><div><b>SpendCue</b><span>iPhone · iPad</span></div></div>
+        <a class="mini solid" href="https://apps.apple.com/app/id6767021493"><svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg>Download on the App Store</a>
+        <nav aria-label="SpendCue pages"><a href="/SpendCueApp/">Website</a><a href="/SpendCueApp/#help-title">Support</a><a href="/SpendCueApp/privacy/">Privacy</a><a href="/SpendCueApp/terms/">Terms</a></nav>
+      </div>
+    </div>
+
+    <div class="legal">
+      <span>© <span id="year">2026</span> Gamal Labs. Made with care.</span>
+      <span>App Store is a service mark of Apple Inc.</span>
+      <a href="#top" class="to-top">Back to top <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
   <div class="giant" aria-hidden="true">Gamal <em>Labs</em></div>
-  <div class="wrap legal">
-    <span>© <span id="year">2026</span> Gamal Labs. Made with care.</span>
-    <span>App Store is a service mark of Apple Inc.</span>
-  </div>
 </footer>
 
 <script src="assets/site.js" defer></script>
