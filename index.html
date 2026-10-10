@@ -79,6 +79,23 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .nav-links a:hover { color: var(--ink); background: rgb(255 255 255 / .06); }
 .nav-links .cta { color: var(--bg); background: var(--ink); font-weight: 600; }
 .nav-links .cta:hover { color: var(--bg); background: #fff; }
+.dl { position: relative; }
+.dl summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; }
+.dl summary::-webkit-details-marker { display: none; }
+.dl summary svg { width: 14px; height: 14px; transition: transform .3s var(--ease); }
+.dl[open] summary svg { transform: rotate(180deg); }
+.dl-panel { position: absolute; right: 0; top: calc(100% + 14px); width: 340px; padding: 8px; border-radius: 24px; border: 1px solid var(--line-2);
+  background: rgb(18 19 23 / .97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 30px 60px -20px rgb(0 0 0 / .8); animation: pop .35s var(--ease); }
+@keyframes pop { from { opacity: 0; transform: translateY(-6px) scale(.98); } }
+.dl-app { display: grid; grid-template-columns: 48px 1fr; gap: 4px 14px; align-items: center; padding: 12px; border-radius: 18px; }
+.dl-app + .dl-app { border-top: 1px solid var(--line); border-radius: 0 0 18px 18px; }
+.dl-app img { width: 48px; height: 48px; border-radius: 23%; grid-row: span 2; }
+.dl-app b { display: block; color: var(--ink); font-size: 15.5px; letter-spacing: -.01em; }
+.dl-app span { display: block; color: var(--dim); font-size: 12.5px; }
+.dl-btns { grid-column: 2; display: flex; gap: 8px; margin-top: 6px; }
+.nav-links .mini { padding: 7px 14px; font-size: 13.5px; font-weight: 600; color: var(--ink); border: 1px solid var(--line-2); }
+.nav-links .mini.solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.nav-links .mini.solid:hover { background: #fff; color: var(--bg); }
 
 /* ---------- Hero ---------- */
 .hero { position: relative; isolation: isolate; overflow: hidden; padding: 160px 0 90px; text-align: center; --mx: 50%; --my: 30%; }
@@ -114,23 +131,30 @@ h1 em { display: inline-block; padding: 0 .08em .12em 0; margin-bottom: -.12em; 
 .btn-light:hover { transform: translateY(-2px); background: #fff; }
 .btn-glass { border: 1px solid var(--line-2); background: rgb(255 255 255 / .04); color: var(--ink); }
 .btn-glass:hover { background: rgb(255 255 255 / .09); }
+.btn-app { gap: 12px; padding: 9px 22px 9px 9px; background: var(--ink); color: var(--bg); box-shadow: 0 0 0 1px rgb(255 255 255 / .2), 0 14px 40px -12px rgb(255 255 255 / .3); text-align: left; line-height: 1.15; font-size: 16.5px; letter-spacing: -.01em; }
+.btn-app:hover { transform: translateY(-2px); background: #fff; }
+.btn-app img { width: 34px; height: 34px; border-radius: 23%; }
+.btn-app small { display: block; font-size: 11.5px; font-weight: 500; color: #5d5e64; }
 
 /* App shelf */
 .shelf { position: relative; display: flex; justify-content: center; align-items: flex-start; gap: clamp(28px, 6vw, 72px); margin: 100px auto 0; width: fit-content; padding: 0 40px; }
 .shelf::before { content: ""; position: absolute; left: -12%; right: -12%; top: 142px; height: 1px; background: linear-gradient(90deg, transparent, rgb(255 255 255 / .5), transparent); box-shadow: 0 0 24px 2px rgb(160 156 255 / .35); }
 .shelf::after { content: ""; position: absolute; left: -6%; right: -6%; top: 143px; height: 90px; z-index: -1; background: linear-gradient(180deg, rgb(255 255 255 / .07), transparent); clip-path: polygon(3% 0, 97% 0, 100% 100%, 0 100%); }
-.tile { display: grid; justify-items: center; text-decoration: none; width: 140px; }
-.tile .lift { display: block; transition: transform .5s var(--ease); }
-.tile:hover .lift, .tile:focus-visible .lift { transform: translateY(-12px) scale(1.04); }
+.tile { display: grid; justify-items: center; width: 150px; }
+.tile .lift { display: block; border-radius: 23%; transition: transform .5s var(--ease); }
+.tile .lift:hover, .tile .lift:focus-visible { transform: translateY(-12px) scale(1.04); }
 .float { position: relative; display: block; width: 132px; height: 132px; animation: float 7s ease-in-out infinite; }
 .tile:nth-child(2) .float { animation-delay: -2.3s; }
 .tile:nth-child(3) .float { animation-delay: -4.6s; }
 @keyframes float { 50% { transform: translateY(-9px); } }
 .float::before { content: ""; position: absolute; inset: 18% 12% -6%; z-index: -1; border-radius: 50%; background: var(--glow, var(--indigo)); filter: blur(34px); opacity: .55; transition: opacity .4s; }
-.tile:hover .float::before { opacity: .9; }
-.icon { width: 132px; height: 132px; border-radius: 23%; box-shadow: 0 24px 40px -16px rgb(0 0 0 / .9);
+.tile .lift:hover .float::before { opacity: .9; }
+.tile .site { margin-top: 12px; display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; background: rgb(255 255 255 / .03); transition: background .2s, border-color .2s; }
+.tile .site:hover { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .3); }
+.tile .site svg, .btn svg.out { width: 13px; height: 13px; }
+.icon { width: 132px; height: 132px; border-radius: 23%; background: #fff; box-shadow: 0 24px 40px -16px rgb(0 0 0 / .9);
   -webkit-box-reflect: below 12px linear-gradient(transparent 64%, rgb(255 255 255 / .2)); }
-.icon.ghost { display: grid; place-items: center; position: relative; background: rgb(255 255 255 / .03); border: 1.5px dashed rgb(255 255 255 / .2); box-shadow: none; font: italic 64px/1 var(--serif); color: rgb(255 255 255 / .75); }
+.icon.ghost { display: grid; place-items: center; position: relative; background: rgb(255 255 255 / .03); border: 1.5px dashed rgb(255 255 255 / .2); box-shadow: none; font: italic 64px/1 var(--serif); color: rgb(255 255 255 / .75); -webkit-box-reflect: unset; }
 .icon.ghost::after { content: ""; position: absolute; inset: -1.5px; border-radius: inherit; padding: 1.5px; background: conic-gradient(from var(--spin), transparent 0 70%, var(--gold) 85%, transparent 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: spin 4s linear infinite; }
 @keyframes spin { to { --spin: 360deg; } }
@@ -164,7 +188,7 @@ h2 em { display: inline-block; padding: 0 .08em .1em 0; margin-bottom: -.1em; fo
 .store svg { width: 28px; height: 28px; flex: none; }
 .store small { display: block; font-size: 11px; line-height: 1.1; color: #55565c; font-weight: 500; text-align: left; }
 .store b { display: block; font-size: 18px; line-height: 1.15; letter-spacing: -.015em; }
-.links { display: flex; gap: 22px; font-size: 15px; }
+.links { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 22px; font-size: 14.5px; margin-top: 22px; }
 .links a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-2); padding-bottom: 2px; transition: color .2s, border-color .2s; }
 .links a:hover { color: var(--ink); border-color: var(--ink); }
 
@@ -265,14 +289,17 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
   body { font-size: 16px; }
   .wrap { width: calc(100% - 32px); }
   .nav { top: 10px; }
-  .nav-links a:not(.cta) { display: none; }
+  .nav-links > a { display: none; }
+  .dl-panel { width: min(340px, calc(100vw - 24px)); right: -7px; }
   .hero { padding: 132px 0 80px; }
   h1 { font-size: clamp(50px, 15vw, 80px); }
   .eyebrow { font-size: 12.5px; }
   .shelf { gap: 14px; padding: 0; margin-top: 70px; }
   .shelf::before { top: 96px; }
   .shelf::after { top: 97px; height: 60px; }
-  .tile { width: 100px; }
+  .tile { width: 104px; }
+  .tile .site { font-size: 12px; padding: 5px 10px; }
+  .btn-app { width: 100%; max-width: 300px; }
   .float, .icon { width: 86px; height: 86px; }
   .icon.ghost { font-size: 44px; }
   .tile .name { margin-top: 50px; font-size: 14px; }
@@ -303,6 +330,7 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
   <symbol id="i-dl" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#0b0b0d"/><path d="M14 8v9m0 0 3.8-3.8M14 17l-3.8-3.8M9 20.5h10" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10m0 0L9 4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-down" viewBox="0 0 16 16"><path d="M8 3v10m0 0 4-4m-4 4L4 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-out" viewBox="0 0 16 16"><path d="M5.5 10.5 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-g" viewBox="0 0 64 64"><path d="M44 22a15 15 0 1 0 2 15H33" fill="none" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
@@ -312,7 +340,21 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
     <a href="#clipboard">Clipboard Pro+</a>
     <a href="#spendcue">SpendCue</a>
     <a href="#lab">In the lab</a>
-    <a class="cta" href="#contact">Say hello</a>
+    <details class="dl">
+      <summary class="cta">Download <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-down"/></svg></summary>
+      <div class="dl-panel">
+        <div class="dl-app">
+          <img src="assets/icon-clipboard.png" alt="" width="48" height="48">
+          <div><b>Clipboard Pro+</b><span>iPhone · iPad · Mac</span></div>
+          <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/us/app/clipboard-pro-paste-manager/id6761011158">App Store</a><a class="mini" href="/Clipboard-pro-plus/">Website</a></div>
+        </div>
+        <div class="dl-app">
+          <img src="assets/icon-spendcue.png" alt="" width="48" height="48">
+          <div><b>SpendCue</b><span>iPhone · iPad</span></div>
+          <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/app/id6767021493">App Store</a><a class="mini" href="/SpendCueApp/">Website</a></div>
+        </div>
+      </div>
+    </details>
   </div>
 </nav>
 
@@ -325,23 +367,26 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
       <h1 data-reveal style="--d:.08s">Small apps, <em>quietly</em> brilliant.</h1>
       <p class="lede" data-reveal style="--d:.16s">Gamal Labs makes private, native apps for iPhone, iPad and Mac. Each one does a single everyday job, beautifully. <strong>No accounts. No ads. Your data stays yours.</strong></p>
       <div class="cta-row" data-reveal style="--d:.24s">
-        <a class="btn btn-light" href="#clipboard">Meet the apps <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-down"/></svg></a>
-        <a class="btn btn-glass" href="#contact">Get in touch</a>
+        <a class="btn btn-app" href="https://apps.apple.com/us/app/clipboard-pro-paste-manager/id6761011158"><img src="assets/icon-clipboard.png" alt="" width="34" height="34"><span><small>Download</small>Clipboard Pro+</span></a>
+        <a class="btn btn-app" href="https://apps.apple.com/app/id6767021493"><img src="assets/icon-spendcue.png" alt="" width="34" height="34"><span><small>Download</small>SpendCue</span></a>
       </div>
 
       <div class="shelf" data-reveal style="--d:.34s" aria-label="Apps">
-        <a class="tile" href="#clipboard" style="--glow: var(--indigo)">
-          <span class="lift"><span class="float"><img class="icon" src="assets/icon-clipboard.jpg" alt="" width="512" height="512"></span></span>
+        <div class="tile" style="--glow: var(--indigo)">
+          <a class="lift" href="#clipboard" aria-label="About Clipboard Pro+"><span class="float"><img class="icon" src="assets/icon-clipboard.png" alt="" width="512" height="512"></span></a>
           <span class="name">Clipboard Pro+</span><span class="kind">iPhone · iPad · Mac</span>
-        </a>
-        <a class="tile" href="#spendcue" style="--glow: var(--emerald)">
-          <span class="lift"><span class="float"><img class="icon" src="assets/icon-spendcue.png" alt="" width="512" height="512"></span></span>
+          <a class="site" href="/Clipboard-pro-plus/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+        </div>
+        <div class="tile" style="--glow: var(--emerald)">
+          <a class="lift" href="#spendcue" aria-label="About SpendCue"><span class="float"><img class="icon" src="assets/icon-spendcue.png" alt="" width="512" height="512"></span></a>
           <span class="name">SpendCue</span><span class="kind">iPhone · iPad</span>
-        </a>
-        <a class="tile next" href="#lab" style="--glow: var(--gold)">
-          <span class="lift"><span class="float"><span class="icon ghost" aria-hidden="true">?</span></span></span>
+          <a class="site" href="/SpendCueApp/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+        </div>
+        <div class="tile next" style="--glow: var(--gold)">
+          <a class="lift" href="#lab" aria-label="About the next app"><span class="float"><span class="icon ghost" aria-hidden="true">?</span></span></a>
           <span class="name">Next app</span><span class="kind">In the lab</span>
-        </a>
+          <a class="site" href="#lab">Get notified</a>
+        </div>
       </div>
     </div>
   </header>
@@ -374,25 +419,26 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
   <section class="chapter clip" id="clipboard" aria-labelledby="clip-title">
     <div class="wrap">
       <div class="chapter-head">
-        <div class="kicker" data-reveal><img src="assets/icon-clipboard.jpg" alt="" width="40" height="40"><span class="label">EXP-001 · Clipboard Pro+</span></div>
+        <div class="kicker" data-reveal><img src="assets/icon-clipboard.png" alt="" width="40" height="40"><span class="label">EXP-001 · Clipboard Pro+</span></div>
         <h2 id="clip-title" data-reveal style="--d:.06s">Keep the good stuff. <em>Use it again.</em></h2>
         <p class="lead" data-reveal style="--d:.12s">Everything you copy, from text and links to your go-to replies, saved, tagged and searchable on your iPhone, iPad and Mac.</p>
         <div class="actions" data-reveal style="--d:.18s">
           <a class="store" href="https://apps.apple.com/us/app/clipboard-pro-paste-manager/id6761011158" aria-label="Download Clipboard Pro+ on the App Store">
             <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
           </a>
-          <nav class="links" aria-label="Clipboard Pro+ links">
-            <a href="/Clipboard-pro-plus/">Website</a><a href="/Clipboard-pro-plus/support/">Support</a><a href="/Clipboard-pro-plus/privacy-policy/">Privacy</a>
-          </nav>
+          <a class="btn btn-glass" href="/Clipboard-pro-plus/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
         </div>
+        <nav class="links" aria-label="Clipboard Pro+ help and policies" data-reveal style="--d:.22s">
+          <a href="/Clipboard-pro-plus/support/">Support</a><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a>
+        </nav>
       </div>
 
       <div class="stage" data-scroll>
         <div class="mac">
           <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Clipboard Pro+</span></div>
-          <img src="assets/clipboard-mac-dark.jpg" alt="Clipboard Pro+ on Mac searching saved clips, with a preview pane" width="1600" height="1066" loading="lazy">
+          <img src="assets/clipboard-mac-dark.jpg" alt="Clipboard Pro+ on Mac searching saved clips, with a preview pane" width="1600" height="1067" loading="lazy">
         </div>
-        <div class="device l"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-history.jpg" alt="Clipboard history on iPhone" width="690" height="1500" loading="lazy"></div></div></div></div>
+        <div class="device l"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-history.jpg" alt="Clipboard history on iPhone with text, link and image clips" width="690" height="1500" loading="lazy"></div></div></div></div>
         <div class="device r"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/clipboard-keyboard.jpg" alt="The Clipboard Pro+ keyboard inside a messaging app" width="690" height="1500" loading="lazy"></div></div></div></div>
       </div>
 
@@ -406,6 +452,15 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
         <div class="kicker" data-reveal><img src="assets/icon-spendcue.png" alt="" width="40" height="40"><span class="label">EXP-002 · SpendCue</span></div>
         <h2 id="spend-title" data-reveal style="--d:.06s">Know what’s safe to spend <em>today.</em></h2>
         <p class="lead" data-reveal style="--d:.12s">A calm daily budget that turns your balance, bills and next payday into one number you can trust, with every record kept on your device.</p>
+        <div class="actions" data-reveal style="--d:.18s">
+          <a class="store" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store">
+            <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
+          </a>
+          <a class="btn btn-glass" href="/SpendCueApp/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+        </div>
+        <nav class="links" aria-label="SpendCue help and policies" data-reveal style="--d:.22s">
+          <a href="/SpendCueApp/#help-title">Support</a><a href="/SpendCueApp/privacy/">Privacy policy</a><a href="/SpendCueApp/terms/">Terms of use</a>
+        </nav>
       </div>
 
       <div class="money" data-reveal>
@@ -419,18 +474,10 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
           </div>
           <p class="sample">Sample numbers from the app.</p>
         </div>
-        <div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-home-dark.webp" alt="SpendCue home screen in dark mode showing the daily guide" width="640" height="1391" loading="lazy"></div></div></div></div>
+        <div class="device"><div class="frame"><div class="bezel"><div class="screen"><img src="assets/spendcue-home-dark.jpg" alt="SpendCue home screen in dark mode showing the daily guide" width="639" height="1390" loading="lazy"></div></div></div></div>
         <div class="glow" aria-hidden="true"></div>
       </div>
 
-      <div class="actions" data-reveal>
-        <a class="store" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store">
-          <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
-        </a>
-        <nav class="links" aria-label="SpendCue links">
-          <a href="/SpendCueApp/">Website</a><a href="/SpendCueApp/#help-title">Support</a><a href="/SpendCueApp/privacy/">Privacy</a><a href="/SpendCueApp/terms/">Terms</a>
-        </nav>
-      </div>
     </div>
   </section>
 
@@ -464,17 +511,19 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
         <p>Small, private apps for iPhone, iPad and Mac.</p>
       </div>
       <div><h4>Clipboard Pro+</h4><ul>
-        <li><a href="https://apps.apple.com/us/app/clipboard-pro-paste-manager/id6761011158">App Store</a></li>
+        <li><a href="https://apps.apple.com/us/app/clipboard-pro-paste-manager/id6761011158">Download on the App Store</a></li>
+        <li><a href="/Clipboard-pro-plus/">Website</a></li>
         <li><a href="/Clipboard-pro-plus/support/">Support</a></li>
-        <li><a href="/Clipboard-pro-plus/privacy-policy/">Privacy</a></li></ul></div>
+        <li><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a></li></ul></div>
       <div><h4>SpendCue</h4><ul>
-        <li><a href="https://apps.apple.com/app/id6767021493">App Store</a></li>
+        <li><a href="https://apps.apple.com/app/id6767021493">Download on the App Store</a></li>
+        <li><a href="/SpendCueApp/">Website</a></li>
         <li><a href="/SpendCueApp/#help-title">Support</a></li>
-        <li><a href="/SpendCueApp/privacy/">Privacy</a></li>
-        <li><a href="/SpendCueApp/terms/">Terms</a></li></ul></div>
+        <li><a href="/SpendCueApp/privacy/">Privacy policy</a></li>
+        <li><a href="/SpendCueApp/terms/">Terms of use</a></li></ul></div>
       <div><h4>Studio</h4><ul>
         <li><a href="#lab">In the lab</a></li>
-        <li><a href="mailto:hello@gamallabs.com">Email</a></li></ul></div>
+        <li><a href="mailto:hello@gamallabs.com">Email us</a></li></ul></div>
     </div>
   </div>
   <div class="giant" aria-hidden="true">Gamal <em>Labs</em></div>
@@ -489,6 +538,12 @@ footer::before { content: ""; position: absolute; left: 50%; top: -280px; width:
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = matchMedia("(pointer: fine)").matches;
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Download menu: close on outside click, Escape, or after choosing a link
+  const dl = document.querySelector(".dl");
+  document.addEventListener("click", e => { if (dl.open && !dl.contains(e.target)) dl.open = false; });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && dl.open) { dl.open = false; dl.querySelector("summary").focus(); } });
+  dl.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { dl.open = false; }));
 
   // SpendCue's daily number counts up when it scrolls into view
   const counter = document.getElementById("count");
