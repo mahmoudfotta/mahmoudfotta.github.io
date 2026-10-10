@@ -51,9 +51,10 @@
 <nav class="nav" aria-label="Main">
   <a class="brand" href="#top" aria-label="Gamal Labs home"><span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#i-g"/></svg></span>Gamal Labs</a>
   <div class="nav-links">
-    <a href="#clipboard">Pip Clipboard</a>
-    <a href="#spendcue">SpendCue</a>
-    <a href="#lab">In the lab</a>
+    <span class="nav-pill" aria-hidden="true"></span>
+    <a href="#clipboard" data-spy="clipboard"><img class="on-white" src="assets/icon-clipboard.png" alt="" width="20" height="20">Pip Clipboard</a>
+    <a href="#spendcue" data-spy="spendcue"><img src="assets/icon-spendcue.png" alt="" width="20" height="20">SpendCue</a>
+    <a href="#lab" data-spy="lab"><i class="pulse" aria-hidden="true"></i>In the lab</a>
   </div>
   <div class="nav-end">
     <button class="theme" type="button" aria-label="Switch to light mode">
@@ -61,8 +62,14 @@
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-moon"/></svg>
     </button>
     <details class="dl">
-      <summary>Download <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-down"/></svg></summary>
+      <summary><span class="wide">Download</span><span class="narrow">Menu</span> <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-down"/></svg></summary>
       <div class="dl-panel">
+        <nav class="dl-jump" aria-label="On this page">
+          <p class="dl-title">On this page</p>
+          <a href="#clipboard"><img class="on-white" src="assets/icon-clipboard.png" alt="" width="40" height="40">Pip Clipboard</a>
+          <a href="#spendcue"><img src="assets/icon-spendcue.png" alt="" width="40" height="40">SpendCue</a>
+          <a href="#lab"><span class="q" aria-hidden="true">?</span>In the lab</a>
+        </nav>
         <p class="dl-title">Download or read more</p>
         <div class="dl-app">
           <img class="on-white" src="assets/icon-clipboard.png" alt="" width="48" height="48">
@@ -77,6 +84,7 @@
       </div>
     </details>
   </div>
+  <span class="progress" aria-hidden="true"></span>
 </nav>
 
 <main id="main">

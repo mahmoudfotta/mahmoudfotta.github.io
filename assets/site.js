@@ -31,6 +31,38 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape" && dl.open) { dl.open = false; dl.querySelector("summary").focus(); } });
   dl.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { dl.open = false; }));
 
+  // ---- Header: condensed state, scroll progress and current section ----
+  const nav = document.querySelector(".nav");
+  const links = nav.querySelector(".nav-links");
+  const spyLinks = [...links.querySelectorAll("[data-spy]")];
+  let navTick = false;
+  const onScroll = () => {
+    navTick = false;
+    nav.classList.toggle("scrolled", scrollY > 40);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    nav.style.setProperty("--progress", max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0);
+  };
+  addEventListener("scroll", () => { if (!navTick) { navTick = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  const movePill = link => {
+    spyLinks.forEach(a => a === link ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current"));
+    links.classList.toggle("has-active", !!link);
+    if (!link) return;
+    links.style.setProperty("--px", link.offsetLeft + "px");
+    links.style.setProperty("--pw", link.offsetWidth + "px");
+  };
+  if ("IntersectionObserver" in window) {
+    const visible = new Map();
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => visible.set(e.target.id, e.isIntersecting));
+      const id = spyLinks.map(a => a.dataset.spy).filter(i => visible.get(i)).pop();
+      movePill(spyLinks.find(a => a.dataset.spy === id));
+    }, { rootMargin: "-30% 0px -35% 0px" });
+    spyLinks.forEach(a => { const sec = document.getElementById(a.dataset.spy); if (sec) spy.observe(sec); });
+    addEventListener("resize", () => movePill(spyLinks.find(a => a.hasAttribute("aria-current"))));
+  }
+
   // ---- Copy the email address ----
   const copy = document.querySelector(".copy");
   copy.addEventListener("click", async () => {
