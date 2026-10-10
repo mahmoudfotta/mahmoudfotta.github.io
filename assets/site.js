@@ -113,8 +113,20 @@
   addEventListener("resize", update);
   update();
 
-  // ---- Hero spotlight follows the cursor ----
   if (!fine) return;
+
+  // ---- Launch cards tilt toward the cursor ----
+  document.querySelectorAll(".pad").forEach(pad => {
+    pad.addEventListener("pointermove", e => {
+      const r = pad.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      pad.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
+      pad.style.setProperty("--rx", (-y * 6).toFixed(2) + "deg");
+    });
+    pad.addEventListener("pointerleave", () => { pad.style.setProperty("--rx", "0deg"); pad.style.setProperty("--ry", "0deg"); });
+  });
+
+  // ---- Hero spotlight follows the cursor ----
   const hero = document.getElementById("top");
   hero.addEventListener("pointermove", e => {
     const r = hero.getBoundingClientRect();
