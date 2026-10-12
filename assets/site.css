@@ -230,7 +230,7 @@ h1 em { display: inline-block; padding: 0 .08em .1em 0; margin-bottom: -.1em; fo
 .get { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px 9px 9px; border-radius: 999px; background: var(--cta-bg); color: var(--cta-fg); font-size: 15px; font-weight: 600; text-decoration: none; box-shadow: 0 10px 24px -12px var(--cta-glow); transition: background .2s, transform .45s var(--spring); }
 .get:hover { background: var(--cta-hover); transform: translateY(-1px); }
 .get svg { width: 24px; height: 24px; color: var(--cta-fg); }
-.pad-shot { grid-column: 2; grid-row: 1 / 3; position: relative; margin-top: -92px; margin-bottom: -24px; padding: 0 22px;
+.pad-shot { grid-column: 2; grid-row: 1 / 3; position: relative; margin-top: -124px; margin-bottom: -24px; padding: 32px 22px 0; /* headroom so the lifted phone is never clipped by the mask */
   -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 98%); mask-image: linear-gradient(to bottom, #000 62%, transparent 98%); }
 .pad-shot .device { width: 100%; max-width: 210px; margin: 0 auto; transform: rotate(var(--tilt, 4deg)); transition: transform .7s var(--spring); }
 .pad.spend .pad-shot .device { --tilt: -4deg; }
@@ -441,7 +441,7 @@ footer::before { content: ""; position: absolute; left: -10%; top: -260px; width
   .pad-body p { font-size: 15px; margin-top: 12px; }
   .pad-actions { grid-column: 1 / -1; position: relative; z-index: 2; margin: 18px 20px 0 0; }
   .pad-actions .get { flex: 1; justify-content: center; }
-  .pad-shot { grid-row: 1; margin: -70px 0 0; padding: 0 14px 0 4px; }
+  .pad-shot { grid-row: 1; margin: -102px 0 0; padding: 32px 14px 0 4px; }
   .next-line { font-size: 14.5px; flex-wrap: wrap; }
   .marquee { padding: 20px 0; }
   .ticker-toggle { width: 32px; height: 32px; right: 10px; }
