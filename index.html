@@ -30,11 +30,10 @@
   // Apply a saved appearance before first paint, so there is no flash
   (() => {
     const d = document.documentElement;
-    d.classList.add("js");
     try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") d.dataset.theme = t; } catch (e) {}
   })();
 </script>
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=20261012-polish">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -50,7 +49,6 @@
 <nav class="nav" aria-label="Main">
   <a class="brand" href="#top" aria-label="Gamal Labs home"><span class="mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#i-g"/></svg></span>Gamal Labs</a>
   <div class="nav-links">
-    <span class="nav-pill" aria-hidden="true"></span>
     <a href="#clipboard" data-spy="clipboard"><img class="on-white" src="assets/icon-clipboard.png" alt="" width="20" height="20">Pip Clipboard</a>
     <a href="#spendcue" data-spy="spendcue"><img src="assets/icon-spendcue.png" alt="" width="20" height="20">SpendCue</a>
     <a href="#lab" data-spy="lab"><i class="pulse" aria-hidden="true"></i>In the lab</a>
@@ -80,16 +78,16 @@
   <span class="progress" aria-hidden="true"></span>
 </nav>
 
-<main id="main">
+<main id="main" tabindex="-1">
   <!-- Hero -->
-  <header class="hero" id="top">
+  <header class="hero" id="top" tabindex="-1">
     <div class="wrap">
       <div class="hero-top">
         <div>
-          <p class="eyebrow" data-reveal><i class="live" aria-hidden="true"></i>2 apps on the App Store<span class="wide"> · independent studio, Apple platforms only</span></p>
-          <h1 data-reveal class="d1">Small apps, <em>quietly</em> brilliant.</h1>
+          <p class="eyebrow"><i class="live" aria-hidden="true"></i>2 apps on the App Store<span class="wide"> · independent studio, Apple platforms only</span></p>
+          <h1>Small apps, <em>quietly</em> brilliant.</h1>
         </div>
-        <div class="hero-aside d2" data-reveal>
+        <div class="hero-aside">
           <p class="lede">Private, native apps for iPhone, iPad and Mac. Each one does a single everyday job, and does it properly.</p>
           <ul class="promises">
             <li>No accounts</li>
@@ -100,7 +98,7 @@
       </div>
 
       <div class="launch" aria-label="Our apps">
-        <article class="pad pip d3" data-reveal aria-labelledby="pad-pip">
+        <article class="pad pip" aria-labelledby="pad-pip">
           <div class="pad-body">
             <div class="pad-id">
               <img class="on-white" src="assets/icon-clipboard.png" alt="" width="60" height="60">
@@ -117,7 +115,7 @@
           </div>
         </article>
 
-        <article class="pad spend d4" data-reveal aria-labelledby="pad-spend">
+        <article class="pad spend" aria-labelledby="pad-spend">
           <div class="pad-body">
             <div class="pad-id">
               <img src="assets/icon-spendcue.png" alt="" width="60" height="60">
@@ -138,42 +136,20 @@
         </article>
       </div>
 
-      <a class="next-line d5" href="#lab" data-reveal><span class="q" aria-hidden="true">?</span>A third app is on the bench. <b>Get notified <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></b></a>
+      <a class="next-line" href="#lab"><span class="q" aria-hidden="true">?</span><span>A third app is on the bench. <b>Get notified <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></b></span></a>
     </div>
   </header>
 
-  <!-- Marquee -->
-  <div class="ticker">
-  <div class="marquee" aria-label="What every Gamal Labs app promises">
-    <div class="track">
-      <ul>
-        <li>No accounts</li><li class="s" aria-hidden="true">✦</li>
-        <li>No ads</li><li class="s" aria-hidden="true">✦</li>
-        <li><em>On-device</em> AI</li><li class="s" aria-hidden="true">✦</li>
-        <li>Private iCloud sync</li><li class="s" aria-hidden="true">✦</li>
-        <li>Built natively for Apple</li><li class="s" aria-hidden="true">✦</li>
-        <li>English · العربية · Français · Español</li><li class="s" aria-hidden="true">✦</li>
-        <li>One job, <em>done well</em></li><li class="s" aria-hidden="true">✦</li>
-      </ul>
-      <ul aria-hidden="true">
-        <li>No accounts</li><li class="s">✦</li>
-        <li>No ads</li><li class="s">✦</li>
-        <li><em>On-device</em> AI</li><li class="s">✦</li>
-        <li>Private iCloud sync</li><li class="s">✦</li>
-        <li>Built natively for Apple</li><li class="s">✦</li>
-        <li>English · العربية · Français · Español</li><li class="s">✦</li>
-        <li>One job, <em>done well</em></li><li class="s">✦</li>
-      </ul>
-    </div>
-  </div>
-  <button class="ticker-toggle" type="button" aria-pressed="false" aria-label="Pause the scrolling list">
-    <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5v9M10.5 3.5v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L5.9 3.1a.6.6 0 0 0-.9.5Z" fill="currentColor"/></svg>
-  </button>
-  </div>
+  <section class="principles" aria-label="Thoughtfully made, from the start">
+    <ul class="wrap principles-list">
+      <li><span class="principle-mark" aria-hidden="true">01</span><div><b>Built natively for Apple</b><span>Right at home on your devices.</span></div></li>
+      <li><span class="principle-mark" aria-hidden="true">02</span><div><b>Private by design</b><span>On-device AI. Private iCloud sync.</span></div></li>
+      <li><span class="principle-mark" aria-hidden="true">03</span><div><b>Feels familiar, in four languages</b><span>English · <span lang="ar" dir="rtl">العربية</span> · Français · Español</span></div></li>
+    </ul>
+  </section>
 
   <!-- Pip Clipboard -->
-  <section class="chapter clip" id="clipboard" aria-labelledby="clip-title">
+  <section class="chapter clip" id="clipboard" tabindex="-1" aria-labelledby="clip-title">
     <div class="wrap">
       <div class="chapter-head">
         <div>
@@ -194,7 +170,7 @@
         </div>
       </div>
 
-      <div class="stage" data-scroll>
+      <div class="stage" data-reveal>
         <div class="mac">
           <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Pip Clipboard</span></div>
           <img class="for-dark" src="assets/clipboard-mac-dark.jpg" alt="Pip Clipboard on Mac searching saved clips, with a preview pane" width="1600" height="1067" loading="lazy">
@@ -207,7 +183,7 @@
   </section>
 
   <!-- SpendCue -->
-  <section class="chapter spend" id="spendcue" aria-labelledby="spend-title">
+  <section class="chapter spend" id="spendcue" tabindex="-1" aria-labelledby="spend-title">
     <div class="wrap">
       <div class="chapter-head">
         <div>
@@ -231,7 +207,7 @@
       <div class="money" data-reveal>
         <div class="money-copy">
           <span class="label">Daily guide · today</span>
-          <div class="amount"><sup>$</sup><span id="count">118.48</span></div>
+          <div class="amount"><sup>$</sup><span>118.48</span></div>
           <p class="per">per day, <em>safe to spend.</em></p>
           <div class="money-stats">
             <div><b>$3,436</b><span>available</span></div>
@@ -249,7 +225,7 @@
   </section>
 
   <!-- Lab -->
-  <section class="lab" id="lab" aria-labelledby="lab-title">
+  <section class="lab" id="lab" tabindex="-1" aria-labelledby="lab-title">
     <div class="wrap">
       <div class="lab-card" data-reveal>
         <div class="flask" aria-hidden="true">?</div>
@@ -274,9 +250,10 @@
       <div class="contact-side d2" data-reveal>
         <p>Every message is read by the person who builds the apps. Replies usually take a day or two.</p>
         <div class="contact-actions">
-          <a class="btn btn-light" href="mailto:hello@gamallabs.com">Email hello@gamallabs.com <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          <button class="text-link copy" type="button" data-copy="hello@gamallabs.com"><span>Copy address</span></button>
+          <a class="btn btn-light" href="mailto:hello@gamallabs.com"><span>hello@gamallabs.com</span> <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <button class="text-link copy" type="button" data-copy="hello@gamallabs.com"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10 3V2.5H4a1.5 1.5 0 0 0-1.5 1.5V10H3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Copy address</span></button>
         </div>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
       </div>
     </div>
 
@@ -315,7 +292,7 @@
   <div class="giant" aria-hidden="true">Gamal <em>Labs</em></div>
 </footer>
 
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v=20261012-polish" defer></script>
 <!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9b8ca045cc294328ad5af749bdc2074c"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

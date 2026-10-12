@@ -1,143 +1,246 @@
 (() => {
   const root = document.documentElement;
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const fine = matchMedia("(pointer: fine)").matches;
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  const systemAppearance = matchMedia("(prefers-color-scheme: light)");
+  root.classList.add("js");
+  root.dataset.input = "pointer";
 
-  // ---- Appearance: Auto follows the system; Light and Dark are remembered ----
+  const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  // Keep the browser chrome in sync with the selected appearance.
+  const syncThemeColor = () => {
+    const color = getComputedStyle(root).backgroundColor;
+    document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+      meta.content = color;
+    });
+  };
   const choices = document.querySelectorAll('.appearance input[name="appearance"]');
   const saved = root.dataset.theme || "auto";
-  choices.forEach(input => { input.checked = input.value === saved; });
-  choices.forEach(input => input.addEventListener("change", () => {
-    const mode = input.value;
-    const apply = () => {
-      if (mode === "auto") { delete root.dataset.theme; try { localStorage.removeItem("theme"); } catch (e) {} }
-      else { root.dataset.theme = mode; try { localStorage.setItem("theme", mode); } catch (e) {} }
-    };
-    const r = input.parentElement.getBoundingClientRect();
-    root.style.setProperty("--tx", (r.left + r.width / 2) + "px");
-    root.style.setProperty("--ty", (r.top + r.height / 2) + "px");
-    if (document.startViewTransition && !reduce) document.startViewTransition(apply);
-    else apply();
-  }));
+  choices.forEach(input => {
+    input.checked = input.value === saved;
+    input.addEventListener("change", () => {
+      const mode = input.value;
+      if (mode === "auto") {
+        delete root.dataset.theme;
+        try { localStorage.removeItem("theme"); } catch (error) {}
+      } else {
+        root.dataset.theme = mode;
+        try { localStorage.setItem("theme", mode); } catch (error) {}
+      }
+      syncThemeColor();
+    });
+  });
+  systemAppearance.addEventListener("change", syncThemeColor);
+  syncThemeColor();
 
-  // ---- Download menu: close on outside click, Escape, or after choosing a link ----
+  // Content stays visible unless its observer has been set up successfully.
+  const revealItems = [...document.querySelectorAll("[data-reveal]")]
+    .filter(item => !item.closest(".hero"));
+  let revealObserver;
+  const revealAll = () => {
+    revealObserver?.disconnect();
+    revealItems.forEach(item => {
+      item.classList.add("in");
+      item.classList.remove("reveal-ready");
+    });
+  };
+
+  document.addEventListener("pointerdown", () => {
+    root.dataset.input = "pointer";
+  }, true);
+  document.addEventListener("keydown", event => {
+    if (event.metaKey || event.ctrlKey || event.altKey ||
+        ["Shift", "Control", "Alt", "Meta", "CapsLock"].includes(event.key)) return;
+    root.dataset.input = "keyboard";
+    revealAll();
+  }, true);
+
+  // Native details remains the fallback; enhancement adds a short pointer transition.
   const dl = document.querySelector(".dl");
-  document.addEventListener("click", e => { if (dl.open && !dl.contains(e.target)) dl.open = false; });
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && dl.open) { dl.open = false; dl.querySelector("summary").focus(); } });
-  dl.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { dl.open = false; }));
+  let settleMenu = () => {};
+  if (dl) {
+    const summary = dl.querySelector("summary");
+    const panel = dl.querySelector(".dl-panel");
+    let wantsOpen = dl.open;
+    let menuFrame = 0;
+    let menuTimer = 0;
+    let afterClose = null;
 
-  // ---- Header: scrolled state, scroll progress and current section ----
+    const setMenuOpen = (open, onClosed = null, immediate = false) => {
+      cancelAnimationFrame(menuFrame);
+      clearTimeout(menuTimer);
+      menuFrame = 0;
+      menuTimer = 0;
+      wantsOpen = open;
+      afterClose = onClosed;
+      const instant = immediate || motion.matches || root.dataset.input === "keyboard";
+
+      if (open) {
+        afterClose = null;
+        dl.open = true;
+        panel.inert = false;
+        if (instant) dl.classList.add("is-open");
+        else {
+          // Establish the initial style before changing the transition target.
+          panel.getBoundingClientRect();
+          menuFrame = requestAnimationFrame(() => {
+            dl.classList.add("is-open");
+            menuFrame = 0;
+          });
+        }
+      } else {
+        panel.inert = true;
+        dl.classList.remove("is-open");
+        const finish = () => {
+          dl.open = false;
+          menuTimer = 0;
+          const callback = afterClose;
+          afterClose = null;
+          callback?.();
+        };
+        if (instant || !dl.open) finish();
+        else menuTimer = setTimeout(finish, 120);
+      }
+    };
+
+    dl.dataset.enhanced = "true";
+    dl.classList.toggle("is-open", wantsOpen);
+    panel.inert = !wantsOpen;
+    settleMenu = () => setMenuOpen(wantsOpen, afterClose, true);
+    summary.addEventListener("click", event => {
+      event.preventDefault();
+      if (event.detail === 0) {
+        root.dataset.input = "keyboard";
+        revealAll();
+      }
+      setMenuOpen(!wantsOpen);
+    });
+    document.addEventListener("click", event => {
+      if (wantsOpen && !dl.contains(event.target)) setMenuOpen(false);
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && dl.open) {
+        event.preventDefault();
+        setMenuOpen(false, null, true);
+        summary.focus();
+      }
+    });
+    dl.addEventListener("focusout", event => {
+      // Pointer navigation can temporarily focus the body before an anchor's click.
+      // Keep the panel interactive until that click reaches its destination.
+      if (root.dataset.input !== "keyboard" || dl.contains(event.relatedTarget)) return;
+      queueMicrotask(() => {
+        if (root.dataset.input === "keyboard" && wantsOpen && !dl.contains(document.activeElement)) setMenuOpen(false);
+      });
+    });
+    dl.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", event => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (event.detail === 0) {
+          root.dataset.input = "keyboard";
+          revealAll();
+        }
+        const url = new URL(link.href);
+        let target;
+        if (url.origin === location.origin && url.pathname === location.pathname && url.hash) {
+          try { target = document.getElementById(decodeURIComponent(url.hash.slice(1))); } catch (error) {}
+        }
+        setMenuOpen(false, target ? () => {
+          if (!target.hasAttribute("tabindex")) target.tabIndex = -1;
+          target.focus({ preventScroll: true });
+        } : null);
+      });
+    });
+  }
+
+  motion.addEventListener("change", () => {
+    if (motion.matches) {
+      revealAll();
+      settleMenu();
+    }
+  });
+
+  // Header progress and section position update without moving navigation labels.
   const nav = document.querySelector(".nav");
-  const links = nav.querySelector(".nav-links");
-  const spyLinks = [...links.querySelectorAll("[data-spy]")];
+  const progress = nav?.querySelector(".progress");
+  const spyLinks = [...document.querySelectorAll(".nav-links [data-spy]")];
   let navTick = false;
-  const onScroll = () => {
+  const updateNav = () => {
     navTick = false;
-    nav.classList.toggle("scrolled", scrollY > 40);
-    const max = document.documentElement.scrollHeight - innerHeight;
-    nav.style.setProperty("--progress", max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0);
+    nav?.classList.toggle("scrolled", scrollY > 40);
+    const max = root.scrollHeight - innerHeight;
+    if (progress) progress.style.transform = `scaleX(${max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0})`;
   };
-  addEventListener("scroll", () => { if (!navTick) { navTick = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  onScroll();
+  const scheduleNav = () => {
+    if (!navTick) {
+      navTick = true;
+      requestAnimationFrame(updateNav);
+    }
+  };
+  addEventListener("scroll", scheduleNav, { passive: true });
+  addEventListener("resize", scheduleNav);
+  updateNav();
 
-  const movePill = link => {
-    spyLinks.forEach(a => a === link ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current"));
-    links.classList.toggle("has-active", !!link);
-    if (!link) return;
-    links.style.setProperty("--px", link.offsetLeft + "px");
-    links.style.setProperty("--pw", link.offsetWidth + "px");
-  };
   if ("IntersectionObserver" in window) {
     const visible = new Map();
     const spy = new IntersectionObserver(entries => {
-      entries.forEach(e => visible.set(e.target.id, e.isIntersecting));
-      const id = spyLinks.map(a => a.dataset.spy).filter(i => visible.get(i)).pop();
-      movePill(spyLinks.find(a => a.dataset.spy === id));
+      entries.forEach(entry => visible.set(entry.target.id, entry.isIntersecting));
+      const current = spyLinks.map(link => link.dataset.spy).filter(id => visible.get(id)).pop();
+      spyLinks.forEach(link => {
+        if (link.dataset.spy === current) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
     }, { rootMargin: "-30% 0px -35% 0px" });
-    spyLinks.forEach(a => { const sec = document.getElementById(a.dataset.spy); if (sec) spy.observe(sec); });
-    addEventListener("resize", () => movePill(spyLinks.find(a => a.hasAttribute("aria-current"))));
+    spyLinks.forEach(link => {
+      const section = document.getElementById(link.dataset.spy);
+      if (section) spy.observe(section);
+    });
   }
 
-  // ---- Pause / play the scrolling list ----
-  const ticker = document.querySelector(".ticker");
-  const tickerBtn = ticker.querySelector(".ticker-toggle");
-  tickerBtn.addEventListener("click", () => {
-    const paused = tickerBtn.getAttribute("aria-pressed") !== "true";
-    tickerBtn.setAttribute("aria-pressed", paused);
-    ticker.classList.toggle("paused", paused);
-  });
-
-  // ---- Copy the email address ----
+  // Copy feedback stays stable, including after repeated clicks or a denied copy.
   const copy = document.querySelector(".copy");
-  copy.addEventListener("click", async () => {
-    try { await navigator.clipboard.writeText(copy.dataset.copy); } catch (e) { location.href = "mailto:" + copy.dataset.copy; return; }
-    copy.classList.add("done"); copy.firstElementChild.textContent = "Copied to clipboard";
-    setTimeout(() => { copy.classList.remove("done"); copy.firstElementChild.textContent = "Copy address"; }, 2000);
-  });
-
-  // ---- SpendCue's daily number counts up when it scrolls into view ----
-  const counter = document.getElementById("count");
-  const countUp = () => {
-    if (reduce || counter.dataset.done) return;
-    counter.dataset.done = "1";
-    const target = 118.48, t0 = performance.now(), dur = 1800;
-    const tick = now => {
-      const k = Math.min(1, (now - t0) / dur);
-      counter.textContent = (target * (1 - Math.pow(1 - k, 4))).toFixed(2);
-      if (k < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-
-  // ---- Reveal on scroll ----
-  const items = document.querySelectorAll("[data-reveal]");
-  if (reduce || !("IntersectionObserver" in window)) items.forEach(el => el.classList.add("in"));
-  else {
-    const io = new IntersectionObserver(entries => entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add("in");
-      if (e.target.classList.contains("money")) countUp();
-      io.unobserve(e.target);
-    }), { rootMargin: "0px 0px -10% 0px", threshold: .1 });
-    items.forEach(el => io.observe(el));
+  const copyStatus = document.getElementById("copy-status");
+  if (copy) {
+    const label = copy.querySelector("span") || copy;
+    let resetTimer;
+    let copyRequest = 0;
+    copy.addEventListener("click", async () => {
+      const request = ++copyRequest;
+      clearTimeout(resetTimer);
+      copy.classList.remove("done");
+      label.textContent = "Copy address";
+      if (copyStatus) copyStatus.textContent = "";
+      try {
+        await navigator.clipboard.writeText(copy.dataset.copy);
+        if (request !== copyRequest) return;
+        copy.classList.add("done");
+        label.textContent = "Copied";
+        if (copyStatus) copyStatus.textContent = "Email address copied to clipboard.";
+        resetTimer = setTimeout(() => {
+          copy.classList.remove("done");
+          label.textContent = "Copy address";
+          if (copyStatus) copyStatus.textContent = "";
+        }, 2400);
+      } catch (error) {
+        if (request !== copyRequest) return;
+        if (copyStatus) copyStatus.textContent = "Couldn’t copy. Select the email address above to copy it.";
+      }
+    });
   }
-  if (reduce) return;
 
-  // ---- The Mac window flattens and the phones rise as the stage scrolls in ----
-  const stages = [...document.querySelectorAll("[data-scroll]")];
-  let ticking = false;
-  const update = () => {
-    ticking = false;
-    stages.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      el.style.setProperty("--p", Math.min(1, Math.max(0, (innerHeight - top) / (innerHeight * .75))).toFixed(3));
+  if (motion.matches || !("IntersectionObserver" in window)) revealAll();
+  else {
+    revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("in");
+        revealObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -24px 0px", threshold: 0.05 });
+    revealItems.forEach(item => {
+      revealObserver.observe(item);
+      item.classList.add("reveal-ready");
     });
-  };
-  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener("resize", update);
-  update();
-
-  if (!fine) return;
-
-  // ---- Launch cards tilt toward the cursor, and their border lights up under it ----
-  document.querySelectorAll(".pad").forEach(pad => {
-    pad.addEventListener("pointermove", e => {
-      const r = pad.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-      pad.style.setProperty("--ry", ((x - .5) * 6).toFixed(2) + "deg");
-      pad.style.setProperty("--rx", ((.5 - y) * 6).toFixed(2) + "deg");
-      pad.style.setProperty("--sx", (x * 100).toFixed(1) + "%");
-      pad.style.setProperty("--sy", (y * 100).toFixed(1) + "%");
-    });
-    pad.addEventListener("pointerleave", () => { pad.style.setProperty("--rx", "0deg"); pad.style.setProperty("--ry", "0deg"); });
-  });
-
-  // ---- Hero spotlight follows the cursor ----
-  const hero = document.getElementById("top");
-  hero.addEventListener("pointermove", e => {
-    const r = hero.getBoundingClientRect();
-    hero.style.setProperty("--mx", (e.clientX - r.left) + "px");
-    hero.style.setProperty("--my", (e.clientY - r.top) + "px");
-  });
+  }
 })();
