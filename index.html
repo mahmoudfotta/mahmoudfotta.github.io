@@ -14,19 +14,20 @@
 <meta property="og:image" content="https://gamallabs.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Gamal Labs: small apps, quietly brilliant. The Pip Clipboard and SpendCue app icons on a glowing shelf.">
+<meta property="og:image:alt" content="Gamal Labs: small apps, quietly brilliant. Pip Clipboard and SpendCue on iPhone.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Gamal Labs · Small apps, quietly brilliant">
 <meta name="twitter:description" content="Private, native apps for iPhone, iPad and Mac. No accounts, no ads, and your data stays yours.">
 <meta name="twitter:image" content="https://gamallabs.com/assets/og.png">
-<meta name="twitter:image:alt" content="Gamal Labs: small apps, quietly brilliant. The Pip Clipboard and SpendCue app icons on a glowing shelf.">
+<meta name="twitter:image:alt" content="Gamal Labs: small apps, quietly brilliant. Pip Clipboard and SpendCue on iPhone.">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#07080a" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2307080a'/%3E%3Cpath d='M44 22a15 15 0 1 0 2 15H33' fill='none' stroke='%23f4f2ee' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='47' cy='18' r='4' fill='%23f0bd55'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d0c0b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230d0c0b'/%3E%3Cpath d='M44 22a15 15 0 1 0 2 15H33' fill='none' stroke='%23f2efe9' stroke-width='6.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='47' cy='18' r='4' fill='%23e6b35e'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-  // Apply a saved theme before first paint, so there is no flash
+  // Apply a saved appearance before first paint, so there is no flash
   (() => {
     const d = document.documentElement;
     d.classList.add("js");
@@ -39,13 +40,11 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <svg class="sprite" aria-hidden="true">
-  <symbol id="i-dl" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="currentColor"/><path d="M14 8v9m0 0 3.8-3.8M14 17l-3.8-3.8M9 20.5h10" fill="none" style="stroke: var(--cta-bg)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dl" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="currentColor"/><path d="M14 8v9m0 0 3.8-3.8M14 17l-3.8-3.8M9 20.5h10" fill="none" style="stroke: var(--cta-bg)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10m0 0L9 4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-down" viewBox="0 0 16 16"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-out" viewBox="0 0 16 16"><path d="M5.5 10.5 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-g" viewBox="0 0 64 64"><path d="M44 22a15 15 0 1 0 2 15H33" fill="none" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
 </svg>
 
 <nav class="nav" aria-label="Main">
@@ -56,48 +55,52 @@
     <a href="#spendcue" data-spy="spendcue"><img src="assets/icon-spendcue.png" alt="" width="20" height="20">SpendCue</a>
     <a href="#lab" data-spy="lab"><i class="pulse" aria-hidden="true"></i>In the lab</a>
   </div>
-  <div class="nav-end">
-    <button class="theme" type="button" aria-label="Switch to light mode">
-      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-sun"/></svg>
-      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-moon"/></svg>
-    </button>
-    <details class="dl">
-      <summary><span class="wide">Download</span><span class="narrow">Menu</span> <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-down"/></svg></summary>
-      <div class="dl-panel">
-        <nav class="dl-jump" aria-label="On this page">
-          <p class="dl-title">On this page</p>
-          <a href="#clipboard"><img class="on-white" src="assets/icon-clipboard.png" alt="" width="40" height="40">Pip Clipboard</a>
-          <a href="#spendcue"><img src="assets/icon-spendcue.png" alt="" width="40" height="40">SpendCue</a>
-          <a href="#lab"><span class="q" aria-hidden="true">?</span>In the lab</a>
-        </nav>
-        <p class="dl-title">Download or read more</p>
-        <div class="dl-app">
-          <img class="on-white" src="assets/icon-clipboard.png" alt="" width="48" height="48">
-          <div><b>Pip Clipboard</b><span>iPhone · iPad · Mac</span></div>
-          <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/app/id6761011158">App Store</a><a class="mini" href="/Clipboard-pro-plus/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a></div>
-        </div>
-        <div class="dl-app">
-          <img src="assets/icon-spendcue.png" alt="" width="48" height="48">
-          <div><b>SpendCue</b><span>iPhone · iPad</span></div>
-          <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/app/id6767021493">App Store</a><a class="mini" href="/SpendCueApp/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a></div>
-        </div>
+  <details class="dl">
+    <summary><span class="wide">Download</span><span class="narrow">Menu</span> <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-down"/></svg></summary>
+    <div class="dl-panel">
+      <nav class="dl-jump" aria-label="On this page">
+        <p class="dl-title">On this page</p>
+        <a href="#clipboard"><img class="on-white" src="assets/icon-clipboard.png" alt="" width="40" height="40">Pip Clipboard</a>
+        <a href="#spendcue"><img src="assets/icon-spendcue.png" alt="" width="40" height="40">SpendCue</a>
+        <a href="#lab"><span class="q" aria-hidden="true">?</span>In the lab</a>
+      </nav>
+      <p class="dl-title">Download or read more</p>
+      <div class="dl-app">
+        <img class="on-white" src="assets/icon-clipboard.png" alt="" width="48" height="48">
+        <div><b>Pip Clipboard</b><span>iPhone · iPad · Mac</span></div>
+        <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/app/id6761011158">App Store</a><a class="text-link" href="/Clipboard-pro-plus/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a></div>
       </div>
-    </details>
-  </div>
+      <div class="dl-app">
+        <img src="assets/icon-spendcue.png" alt="" width="48" height="48">
+        <div><b>SpendCue</b><span>iPhone · iPad</span></div>
+        <div class="dl-btns"><a class="mini solid" href="https://apps.apple.com/app/id6767021493">App Store</a><a class="text-link" href="/SpendCueApp/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a></div>
+      </div>
+    </div>
+  </details>
   <span class="progress" aria-hidden="true"></span>
 </nav>
 
 <main id="main">
   <!-- Hero -->
   <header class="hero" id="top">
-    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="wrap">
-      <span class="eyebrow" data-reveal><b>2 APPS LIVE</b><span><span class="wide">An independent</span><span class="narrow">Indie</span> studio for Apple devices</span></span>
-      <h1 data-reveal style="--d:.08s">Small apps, <em>quietly</em> brilliant.</h1>
-      <p class="lede" data-reveal style="--d:.16s">Private, native apps for iPhone, iPad and Mac, each doing one everyday job beautifully. <strong>No accounts. No ads. Your data stays yours.</strong></p>
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow" data-reveal><i class="live" aria-hidden="true"></i>2 apps on the App Store<span class="wide"> · independent studio, Apple platforms only</span></p>
+          <h1 data-reveal class="d1">Small apps, <em>quietly</em> brilliant.</h1>
+        </div>
+        <div class="hero-aside d2" data-reveal>
+          <p class="lede">Private, native apps for iPhone, iPad and Mac. Each one does a single everyday job, and does it properly.</p>
+          <ul class="promises">
+            <li>No accounts</li>
+            <li>No ads</li>
+            <li>Your data stays yours</li>
+          </ul>
+        </div>
+      </div>
 
       <div class="launch" aria-label="Our apps">
-        <article class="pad pip" data-reveal style="--d:.26s" aria-labelledby="pad-pip">
+        <article class="pad pip d3" data-reveal aria-labelledby="pad-pip">
           <div class="pad-body">
             <div class="pad-id">
               <img class="on-white" src="assets/icon-clipboard.png" alt="" width="60" height="60">
@@ -110,11 +113,11 @@
           </div>
           <div class="pad-actions">
             <a class="get" href="https://apps.apple.com/app/id6761011158" aria-label="Download Pip Clipboard on the App Store"><svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg>App Store</a>
-            <a class="mini" href="/Clipboard-pro-plus/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+            <a class="text-link" href="/Clipboard-pro-plus/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
           </div>
         </article>
 
-        <article class="pad spend" data-reveal style="--d:.34s" aria-labelledby="pad-spend">
+        <article class="pad spend d4" data-reveal aria-labelledby="pad-spend">
           <div class="pad-body">
             <div class="pad-id">
               <img src="assets/icon-spendcue.png" alt="" width="60" height="60">
@@ -130,16 +133,17 @@
           </div>
           <div class="pad-actions">
             <a class="get" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store"><svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg>App Store</a>
-            <a class="mini" href="/SpendCueApp/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+            <a class="text-link" href="/SpendCueApp/">Website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
           </div>
         </article>
       </div>
 
-      <a class="next-pill" href="#lab" data-reveal style="--d:.42s"><span class="q" aria-hidden="true">?</span>A third app is on the bench <b>Get notified <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></b></a>
+      <a class="next-line d5" href="#lab" data-reveal><span class="q" aria-hidden="true">?</span>A third app is on the bench. <b>Get notified <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></b></a>
     </div>
   </header>
 
   <!-- Marquee -->
+  <div class="ticker">
   <div class="marquee" aria-label="What every Gamal Labs app promises">
     <div class="track">
       <ul>
@@ -162,23 +166,32 @@
       </ul>
     </div>
   </div>
+  <button class="ticker-toggle" type="button" aria-pressed="false" aria-label="Pause the scrolling list">
+    <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5v9M10.5 3.5v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1L5.9 3.1a.6.6 0 0 0-.9.5Z" fill="currentColor"/></svg>
+  </button>
+  </div>
 
   <!-- Pip Clipboard -->
   <section class="chapter clip" id="clipboard" aria-labelledby="clip-title">
     <div class="wrap">
       <div class="chapter-head">
-        <div class="kicker" data-reveal><img class="on-white" src="assets/icon-clipboard.png" alt="" width="40" height="40"><span class="label">EXP-001 · Pip Clipboard</span></div>
-        <h2 id="clip-title" data-reveal style="--d:.06s">Keep the good stuff. <em>Use it again.</em></h2>
-        <p class="lead" data-reveal style="--d:.12s">Everything you copy, from text and links to images and your go-to replies, saved, tagged and searchable on your iPhone, iPad and Mac.</p>
-        <div class="actions" data-reveal style="--d:.18s">
-          <a class="store" href="https://apps.apple.com/app/id6761011158" aria-label="Download Pip Clipboard on the App Store">
-            <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
-          </a>
-          <a class="btn btn-glass" href="/Clipboard-pro-plus/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+        <div>
+          <p class="kicker" data-reveal><img class="on-white" src="assets/icon-clipboard.png" alt="" width="40" height="40"><span class="label">Experiment 001 · Pip Clipboard</span></p>
+          <h2 id="clip-title" data-reveal class="d1">Keep the good stuff. <em>Use it again.</em></h2>
         </div>
-        <nav class="links" aria-label="Pip Clipboard help and policies" data-reveal style="--d:.22s">
-          <a href="/Clipboard-pro-plus/support/">Support</a><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a>
-        </nav>
+        <div class="chapter-side d2" data-reveal>
+          <p class="lead">Everything you copy, from text and links to images and your go-to replies, saved, tagged and searchable on your iPhone, iPad and Mac.</p>
+          <div class="actions">
+            <a class="store" href="https://apps.apple.com/app/id6761011158" aria-label="Download Pip Clipboard on the App Store">
+              <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
+            </a>
+            <a class="text-link" href="/Clipboard-pro-plus/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+          </div>
+          <nav class="links" aria-label="Pip Clipboard help and policies">
+            <a href="/Clipboard-pro-plus/support/">Support</a><a href="/Clipboard-pro-plus/privacy-policy/">Privacy policy</a>
+          </nav>
+        </div>
       </div>
 
       <div class="stage" data-scroll>
@@ -197,23 +210,27 @@
   <section class="chapter spend" id="spendcue" aria-labelledby="spend-title">
     <div class="wrap">
       <div class="chapter-head">
-        <div class="kicker" data-reveal><img src="assets/icon-spendcue.png" alt="" width="40" height="40"><span class="label">EXP-002 · SpendCue</span></div>
-        <h2 id="spend-title" data-reveal style="--d:.06s">Know what’s safe to spend <em>today.</em></h2>
-        <p class="lead" data-reveal style="--d:.12s">A calm daily budget that turns your balance, bills and next payday into one number you can trust, with every record kept on your device.</p>
-        <div class="actions" data-reveal style="--d:.18s">
-          <a class="store" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store">
-            <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
-          </a>
-          <a class="btn btn-glass" href="/SpendCueApp/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+        <div>
+          <p class="kicker" data-reveal><img src="assets/icon-spendcue.png" alt="" width="40" height="40"><span class="label">Experiment 002 · SpendCue</span></p>
+          <h2 id="spend-title" data-reveal class="d1">Know what’s safe to spend <em>today.</em></h2>
         </div>
-        <nav class="links" aria-label="SpendCue help and policies" data-reveal style="--d:.22s">
-          <a href="/SpendCueApp/#help-title">Support</a><a href="/SpendCueApp/privacy/">Privacy policy</a><a href="/SpendCueApp/terms/">Terms of use</a>
-        </nav>
+        <div class="chapter-side d2" data-reveal>
+          <p class="lead">A calm daily budget that turns your balance, bills and next payday into one number you can trust, with every record kept on your device.</p>
+          <div class="actions">
+            <a class="store" href="https://apps.apple.com/app/id6767021493" aria-label="Download SpendCue on the App Store">
+              <svg viewBox="0 0 28 28" aria-hidden="true"><use href="#i-dl"/></svg><span><small>Download on the</small><b>App Store</b></span>
+            </a>
+            <a class="text-link" href="/SpendCueApp/">Visit website <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-out"/></svg></a>
+          </div>
+          <nav class="links" aria-label="SpendCue help and policies">
+            <a href="/SpendCueApp/#help-title">Support</a><a href="/SpendCueApp/privacy/">Privacy policy</a><a href="/SpendCueApp/terms/">Terms of use</a>
+          </nav>
+        </div>
       </div>
 
       <div class="money" data-reveal>
         <div class="money-copy">
-          <span class="label">Daily guide · Today</span>
+          <span class="label">Daily guide · today</span>
           <div class="amount"><sup>$</sup><span id="count">118.48</span></div>
           <p class="per">per day, <em>safe to spend.</em></p>
           <div class="money-stats">
@@ -237,7 +254,7 @@
       <div class="lab-card" data-reveal>
         <div class="flask" aria-hidden="true">?</div>
         <div>
-          <span class="label">EXP-003 · Status: brewing</span>
+          <span class="label">Experiment 003 · status: brewing</span>
           <h2 id="lab-title">Something new is <em>on the bench.</em></h2>
           <p>The next Gamal Labs app is in development. Same rules: private, native, one job done well.</p>
         </div>
@@ -249,13 +266,17 @@
 
 <footer id="contact">
   <div class="wrap">
-    <div class="contact" data-reveal>
-      <span class="label">Contact</span>
-      <h2>Ideas, bugs or <em>just hello?</em></h2>
-      <p>Every message is read by the person who builds the apps.</p>
-      <div class="contact-actions">
-        <a class="btn btn-light" href="mailto:hello@gamallabs.com">Email hello@gamallabs.com <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <button class="btn btn-glass copy" type="button" data-copy="hello@gamallabs.com"><span>Copy address</span></button>
+    <div class="contact">
+      <div data-reveal>
+        <span class="label">Contact</span>
+        <h2>Ideas, bugs or <em>just hello?</em></h2>
+      </div>
+      <div class="contact-side d2" data-reveal>
+        <p>Every message is read by the person who builds the apps. Replies usually take a day or two.</p>
+        <div class="contact-actions">
+          <a class="btn btn-light" href="mailto:hello@gamallabs.com">Email hello@gamallabs.com <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <button class="text-link copy" type="button" data-copy="hello@gamallabs.com"><span>Copy address</span></button>
+        </div>
       </div>
     </div>
 
@@ -281,6 +302,12 @@
 
     <div class="legal">
       <span>© <span id="year">2026</span> Gamal Labs. Made with care.</span>
+      <fieldset class="appearance">
+        <legend>Appearance</legend>
+        <label><input type="radio" name="appearance" value="auto" checked><span>Auto</span></label>
+        <label><input type="radio" name="appearance" value="light"><span>Light</span></label>
+        <label><input type="radio" name="appearance" value="dark"><span>Dark</span></label>
+      </fieldset>
       <span>App Store is a service mark of Apple Inc.</span>
       <a href="#top" class="to-top">Back to top <svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>

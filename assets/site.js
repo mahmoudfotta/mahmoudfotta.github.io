@@ -2,28 +2,24 @@
   const root = document.documentElement;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = matchMedia("(pointer: fine)").matches;
-  const systemLight = matchMedia("(prefers-color-scheme: light)");
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // ---- Theme: follows the system until the visitor picks one ----
-  const toggle = document.querySelector(".theme");
-  const current = () => root.dataset.theme || (systemLight.matches ? "light" : "dark");
-  const label = () => toggle.setAttribute("aria-label", current() === "dark" ? "Switch to light mode" : "Switch to dark mode");
-  const apply = next => {
-    root.dataset.theme = next;
-    try { localStorage.setItem("theme", next); } catch (e) {}
-    label();
-  };
-  toggle.addEventListener("click", () => {
-    const next = current() === "dark" ? "light" : "dark";
-    const r = toggle.getBoundingClientRect();
+  // ---- Appearance: Auto follows the system; Light and Dark are remembered ----
+  const choices = document.querySelectorAll('.appearance input[name="appearance"]');
+  const saved = root.dataset.theme || "auto";
+  choices.forEach(input => { input.checked = input.value === saved; });
+  choices.forEach(input => input.addEventListener("change", () => {
+    const mode = input.value;
+    const apply = () => {
+      if (mode === "auto") { delete root.dataset.theme; try { localStorage.removeItem("theme"); } catch (e) {} }
+      else { root.dataset.theme = mode; try { localStorage.setItem("theme", mode); } catch (e) {} }
+    };
+    const r = input.parentElement.getBoundingClientRect();
     root.style.setProperty("--tx", (r.left + r.width / 2) + "px");
     root.style.setProperty("--ty", (r.top + r.height / 2) + "px");
-    if (document.startViewTransition && !reduce) document.startViewTransition(() => apply(next));
-    else apply(next);
-  });
-  systemLight.addEventListener("change", label);
-  label();
+    if (document.startViewTransition && !reduce) document.startViewTransition(apply);
+    else apply();
+  }));
 
   // ---- Download menu: close on outside click, Escape, or after choosing a link ----
   const dl = document.querySelector(".dl");
@@ -31,7 +27,7 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape" && dl.open) { dl.open = false; dl.querySelector("summary").focus(); } });
   dl.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { dl.open = false; }));
 
-  // ---- Header: condensed state, scroll progress and current section ----
+  // ---- Header: scrolled state, scroll progress and current section ----
   const nav = document.querySelector(".nav");
   const links = nav.querySelector(".nav-links");
   const spyLinks = [...links.querySelectorAll("[data-spy]")];
@@ -63,11 +59,20 @@
     addEventListener("resize", () => movePill(spyLinks.find(a => a.hasAttribute("aria-current"))));
   }
 
+  // ---- Pause / play the scrolling list ----
+  const ticker = document.querySelector(".ticker");
+  const tickerBtn = ticker.querySelector(".ticker-toggle");
+  tickerBtn.addEventListener("click", () => {
+    const paused = tickerBtn.getAttribute("aria-pressed") !== "true";
+    tickerBtn.setAttribute("aria-pressed", paused);
+    ticker.classList.toggle("paused", paused);
+  });
+
   // ---- Copy the email address ----
   const copy = document.querySelector(".copy");
   copy.addEventListener("click", async () => {
     try { await navigator.clipboard.writeText(copy.dataset.copy); } catch (e) { location.href = "mailto:" + copy.dataset.copy; return; }
-    copy.classList.add("done"); copy.firstElementChild.textContent = "Copied ✓";
+    copy.classList.add("done"); copy.firstElementChild.textContent = "Copied to clipboard";
     setTimeout(() => { copy.classList.remove("done"); copy.firstElementChild.textContent = "Copy address"; }, 2000);
   });
 
@@ -115,13 +120,15 @@
 
   if (!fine) return;
 
-  // ---- Launch cards tilt toward the cursor ----
+  // ---- Launch cards tilt toward the cursor, and their border lights up under it ----
   document.querySelectorAll(".pad").forEach(pad => {
     pad.addEventListener("pointermove", e => {
       const r = pad.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      pad.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
-      pad.style.setProperty("--rx", (-y * 6).toFixed(2) + "deg");
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      pad.style.setProperty("--ry", ((x - .5) * 6).toFixed(2) + "deg");
+      pad.style.setProperty("--rx", ((.5 - y) * 6).toFixed(2) + "deg");
+      pad.style.setProperty("--sx", (x * 100).toFixed(1) + "%");
+      pad.style.setProperty("--sy", (y * 100).toFixed(1) + "%");
     });
     pad.addEventListener("pointerleave", () => { pad.style.setProperty("--rx", "0deg"); pad.style.setProperty("--ry", "0deg"); });
   });
